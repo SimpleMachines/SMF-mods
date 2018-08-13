@@ -8,10 +8,10 @@
 	width: auto;
 }
 
-@media screen and (min-width: 300px) and (max-width: 640px) {
+@media screen and (min-width: 240px) and (max-width: 640px) {
 	/* Considering something trying to be bad boy and editing body (especially portals! */
 	body {
-		min-width: 300px !important;
+		min-width: 240px !important;
 	}
 	
 	/* Calendar Time */
@@ -71,7 +71,14 @@
 	.responsive_menu.search {
 		background-position: -31px -83px;
 	}
-	
+
+	/* If it has more items, make some margin */
+	#main_menu {
+		margin: -15px 0 0 0;
+	}
+	.dropmenu li {
+		margin: 0 0 5px 0;
+	}
 	/* Do not hover or show them... */
 	.dropmenu li a.active, .dropmenu li a.active:hover,
 	.dropmenu li:hover, .dropmenu li a:hover,
@@ -79,10 +86,10 @@
 	#main_menu .dropmenu li:hover, .dropmenu li:hover a.firstlevel {
 		background: none !important;
 	}
-	
-	#messageindex .last_th, .keyinfo {
+	.keyinfo h5, .keyinfo .messageicon, #messageindex .last_th {
 		display: none;
 	}
+
 	.bbc_img {
 		max-width: 100%;
 		max-height: 100%;
@@ -90,7 +97,8 @@
 }
 
 @media screen and (max-width: 480px) {
-	table.table_list tbody.content td.icon, table.table_list a.unreadlink, table.table_list a.collapse
+	table.table_list tbody.content td.icon, table.table_list a.unreadlink, table.table_list a.collapse,
+	#index_common_stats
 	{
 		display: none;
 	}
@@ -126,7 +134,7 @@
 }
 
 @media screen and (max-width: 640px) {
-	.nav_bar_inner, #wrapper, .top_bar_inner, .headerm_inner
+	.nav_bar_inner, .top_bar_inner, .headerm_inner
 	{
 		width: 100%;
 	}
@@ -328,16 +336,18 @@
 	}
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 720px) {
 	body
 	{
 		padding: 0 !important;
+		min-width: 200px !important;
+		max-width: 720px;
 	}
-	#wrapper
+	#wrapper, div#wrapper
 	{
 		width: 100% !important;
-		min-width: auto !important;
-		max-width: auto !important;
+		min-width: 240px !important;
+		max-width: 720px !important;
 	}
 	div#upper_section div.user
 	{
@@ -393,7 +403,9 @@
 		width: 100px !important;
 		height: 100px !important;
 	}
-	.poster li.stars, .poster li.blurb, li.postcount, li.im_icons, li.title, li.postgroup, li.karma, li.karma_allow, li.gender, li.custom, li.email, li.warning
+	.poster li.stars, .poster li.blurb, li.postcount,
+	li.im_icons, li.title, li.postgroup, li.karma,
+	li.karma_allow, li.gender, li.custom, li.email, li.warning
 	{
 		display: none;
 	}
@@ -426,9 +438,8 @@
 	}
 	.keyinfo
 	{
-		border-radius: 2px;
-		background-color: rgba(153,153,153,0.1);
-		padding: 3px 2px;
+		background: none;
+		text-align: center;
 		width: 100% !important;
 	}
 	.buttonlist ul li
@@ -455,6 +466,13 @@
 		border-bottom: 3px solid #dbe4ef;
 		float: none;
 		width: 100%;
+	}
+
+	/* some dirty fix for SP :)*/
+	#sp_left, #sp_right, #sp_center
+	{
+		width: 100%;
+		display: block;
 	}
 }
 

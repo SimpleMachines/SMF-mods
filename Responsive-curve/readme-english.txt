@@ -48,6 +48,15 @@ The Package Manager should work in most cases, if you have problems installing p
 
 [color=purple][b][size=10pt]Change Log[/size][/b][/color]
 [size=8pt]
+[b]Version 1.0 Beta 5 - June 11 2015[/b]
+! Resolution range decreased to 720px (it was 780px)
+! Resolution range decreased to 240px (it was 300px)
+! Small margin changes on main_menu (dropmenu) for small devices (240px-640px)
+! index_common_stats now hidden due to template styling (for small devices)
+! Improvements for iPhone 4 (+earlier) users (now they can see menu if they can't before)
+! Keyinfo now back but not fully, posts now showing time_stamp (as requested)
+! A dirty fix added for Simple Portal (don't get your hopes up, can be removed before stable release)
+! Problem with size on wrapper element fixed (fingers crossed :P)
 [b]Version 1.0 Beta 4 - May 8 2015[/b]
 ! Stats page (action=stats) blank issue fixed and size increased
 ! Unread topic/posts issue fixed
