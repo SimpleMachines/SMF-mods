@@ -10,12 +10,19 @@
 
 @media screen and (min-width: 300px) and (max-width: 640px) {
 	/* Considering something trying to be bad boy and editing body (especially portals! */
-	/* or consider we have stupid "engines" around trying to be smart */
-	body,
-	div#header, #header, #wrapper, #header div.frame
+	body {
+		min-width: 300px !important;
+	}
+	
+	/* Calendar Time */
+	#month_grid, #month_grid table,
+	#main_grid
 	{
-		min-width: 200px !important;
-		max-width: 640px !important;
+		float: none;
+		width: 100%;
+	}
+	#main_grid {
+		margin-left: 0 !important;
 	}
 	
 	/* Load menu icons */
@@ -69,7 +76,7 @@
 	.dropmenu li a.active, .dropmenu li a.active:hover,
 	.dropmenu li:hover, .dropmenu li a:hover,
 	.dropmenu li a.firstlevel:hover, #main_menu li:hover,
-	#main_menu .dropmenu li:hover {
+	#main_menu .dropmenu li:hover, .dropmenu li:hover a.firstlevel {
 		background: none !important;
 	}
 	
@@ -184,6 +191,21 @@
 	.hidden, .icon, .stats, #posting_icons, #mlist th, .icon1, .icon2
 	{
 		display: none;
+	}
+	#statistics .stats
+	{
+		display: block;
+	}
+	#stats_left, #top_posters, #top_topics_replies, #top_topics_starter,
+	#stats_right, #top_boards, #top_topics_views, #most_online,
+	#popularposts, #popularactivity
+	{
+		width: 100%;
+		float: none;
+	}
+	#report_post input {
+		width: 95%;
+		min-height: 50px;
 	}
 	.tborder .topic_table th.first_th
 	{
@@ -383,13 +405,13 @@
 	{
 		overflow: hidden !important;
 	}
-	dd, dt
+/*	dd, dt
 	{
 		float: none !important;
 		width: 100% !important;
 		overflow: hidden;
 		text-align: left !important;
-	}
+	}*/
 	.inner
 	{
 		padding: 1em .5em 2px .5em;

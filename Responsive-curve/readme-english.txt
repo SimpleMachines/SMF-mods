@@ -47,9 +47,17 @@ The Package Manager should work in most cases, if you have problems installing p
 
 
 [color=purple][b][size=10pt]Change Log[/size][/b][/color]
-[size=8pt][b]Version 1.0 Beta 2 - April 20 2015[/b]
+[size=8pt]
+[b]Version 1.0 Beta 4 - May 8 2015[/b]
+! Stats page (action=stats) blank issue fixed and size increased
+! Unread topic/posts issue fixed
+! Profile stats now has bigger size
+! Report to mod box width/height changed on small screen
+[b]Version 1.0 Beta 3 - April 23 2015[/b]
+! Google test fail problem fixed
+! Login button size issue fixed
+[b]Version 1.0 Beta 2 - April 20 2015[/b]
 ! Missing end tag creates XHTML validation error
-
-[size=8pt][b]Version 1.0 Beta 1 - April 16 2015[/b]
+[b]Version 1.0 Beta 1 - April 16 2015[/b]
 - Initial release
 [/size]
