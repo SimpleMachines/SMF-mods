@@ -9,7 +9,7 @@
 }
 
 @media screen and (min-width: 240px) and (max-width: 640px) {
-	/* Considering something trying to be bad boy and editing body (especially portals! */
+	/* Considering something trying to be bad boy and editing body (especially portals!) */
 	body {
 		min-width: 240px !important;
 	}
@@ -80,10 +80,12 @@
 		margin: 0 0 5px 0;
 	}
 	/* Do not hover or show them... */
-	.dropmenu li a.active, .dropmenu li a.active:hover,
-	.dropmenu li:hover, .dropmenu li a:hover,
-	.dropmenu li a.firstlevel:hover, #main_menu li:hover,
-	#main_menu .dropmenu li:hover, .dropmenu li:hover a.firstlevel {
+	#menu_nav .dropmenu li a.active, #menu_nav .dropmenu li a.active:hover,
+	#menu_nav .dropmenu li:hover, #menu_nav .dropmenu li a:hover,
+	#menu_nav .dropmenu li a.firstlevel:hover, #menu_nav li:hover,
+	#menu_nav .dropmenu li:hover, #menu_nav .dropmenu li:hover a.firstlevel,
+	#main_menu .dropmenu li a.active, #main_menu .dropmenu li a:hover,
+	#main_menu .dropmenu li:hover ul, #main_menu .dropmenu li ul {
 		background: none !important;
 	}
 	.keyinfo h5, .keyinfo .messageicon, #messageindex .last_th {
@@ -159,8 +161,7 @@
 	}
 	.dropmenu li
 	{
-		width: 100%;
-		text-align: center;
+		width: 51%;
 	}
 	.dropmenu li li, .dropmenu li li li
 	{
@@ -169,12 +170,7 @@
 	}
 	.dropmenu li ul
 	{
-		width: 80%;
-		margin-left: 15%;
-	}
-	.dropmenu li ul ul, .dropmenu li.sfhover ul ul
-	{
-		margin: 3px 0 0 50px;
+		width: 100%;
 	}
 	#quick_tasks li
 	{
@@ -292,6 +288,7 @@
 		width: 100%;
 		float: none;
 		text-align: left;
+		margin: 0;
 	}
 	.login dt, .login dd
 	{
@@ -311,9 +308,10 @@
 	{
 		width: 100%;
 	}
-	#searchform .input_text
+	#searchform .input_text, select
 	{
-		width: 75%;
+		width: 95%;
+		padding: 5px 0;
 	}
 	.ignoreboards
 	{

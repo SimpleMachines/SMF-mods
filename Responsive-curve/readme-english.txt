@@ -1,4 +1,4 @@
-[center][color=purple][size=5][b]Responsive Curve (Beta) for SMF 2.0.x[/b][/size][/color][/center]
+[center][color=purple][size=5][b]Responsive Curve for SMF 2.0.x[/b][/size][/color][/center]
 
 
 [color=purple][b][size=10pt]License[/size][/b][/color]
@@ -48,6 +48,10 @@ The Package Manager should work in most cases, if you have problems installing p
 
 [color=purple][b][size=10pt]Change Log[/size][/b][/color]
 [size=8pt]
+[b]Version 1.0.0 - March 21 2016[/b]
+! Padding of select and imput boxes enlarged to avoid bad UX.
+! Admin menu changes to improve its responsiveness.
+! fix for main_menu weird background creation on tap/hover.
 [b]Version 1.0 Beta 5 - June 11 2015[/b]
 ! Resolution range decreased to 720px (it was 780px)
 ! Resolution range decreased to 240px (it was 300px)
