@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:DisableEval</id>
+	<name>DisableTemplateEval</name>
+	<version>1.2</version>
+	<type>modification</type>
+	
+	<install for="2.0 RC1.2">
+		<readme type="file" parsebbc="true">readme-english.txt</readme>
+		<modification type="file">install20rc12.xml</modification>
+		<modification type="file">english.xml</modification>
+		<modification type="file">english_british.xml</modification>
+		<modification type="file">spanish.xml</modification>
+		<modification type="file">spanish-utf8.xml</modification>
+	</install>
+	
+	<uninstall for="2.0 RC1.2">
+		<modification type="file" reverse="true">install20rc12.xml</modification>
+		<modification type="file" reverse="true">english.xml</modification>
+		<modification type="file" reverse="true">english_british.xml</modification>
+		<modification type="file" reverse="true">spanish.xml</modification>
+		<modification type="file" reverse="true">spanish-utf8.xml</modification>
+	</uninstall>
+	
+	<install for="2.0 RC2">
+		<readme type="inline" parsebbc="true">[color=red]NOTICE! This mod is built in to your version of SMF, there is
+		no need to install this mod[/color]</readme>
+		<modification type="file">install20rc2.xml</modification>
+		<modification type="file">english.xml</modification>
+		<modification type="file">english_british.xml</modification>
+		<modification type="file">spanish.xml</modification>
+		<modification type="file">spanish-utf8.xml</modification>
+	</install>
+	
+	<uninstall for="2.0 RC2">
+		<modification type="file" reverse="true">install20rc2.xml</modification>
+		<modification type="file" reverse="true">english.xml</modification>
+		<modification type="file" reverse="true">english_british.xml</modification>
+		<modification type="file" reverse="true">spanish.xml</modification>
+		<modification type="file" reverse="true">spanish-utf8.xml</modification>
+	</uninstall>
+	
+	<install for="1.1 - 1.1.99">
+		<readme type="file" parsebbc="true">readme-english.txt</readme>
+		<modification type="file">install11.xml</modification>
+		<modification type="file">english.xml</modification>
+		<modification type="file">english_british.xml</modification>
+		<modification type="file">spanish.xml</modification>
+		<modification type="file">spanish-utf8.xml</modification>
+	</install>
+	
+	<uninstall for="1.1 - 1.1.99">
+		<modification type="file" reverse="true">install11.xml</modification>
+		<modification type="file" reverse="true">english.xml</modification>
+		<modification type="file" reverse="true">english_british.xml</modification>
+		<modification type="file" reverse="true">spanish.xml</modification>
+		<modification type="file" reverse="true">spanish-utf8.xml</modification>
+	</uninstall>
+</package-info>

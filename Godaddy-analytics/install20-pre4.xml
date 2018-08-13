@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:GoDaddyAnalytics</id>
+	<version>1.2</version>
+
+	<file name="$sourcedir/ManageSettings.php">
+		<operation>
+			<search position="before"><![CDATA[// Basic stuff, titles, flash, permissions...
+]]></search>
+			<add><![CDATA[			array('text', 'godaddyAnalyticsCode'),
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$themedir/index.template.php" error="skip">
+		<operation>
+			<search position="after"><![CDATA[</body>]]></search>
+			<add><![CDATA[';
+	global $modSettings;
+	if(!empty($modSettings['godaddyAnalyticsCode']))
+		echo '<script type="text/javascript"><!-- // -->', chr(60), '![CDATA[', 'var TFN=\'\';var TFA=\'\';var TFI=\'0\';var TFL=\'0\';var tf_RetServer="rt.trafficfacts.com";var tf_SiteId="', $modSettings['godaddyAnalyticsCode'], '";var tf_ScrServer=document.location.protocol+"//rt.trafficfacts.com/tf.php?k=', $modSettings['godaddyAnalyticsCode'], ';c=s;v=5";document.write(unescape(\'%3Cscript type="text/JavaScript" src="\'+tf_ScrServer+\'">%3C/script>\'));// ]]', chr(62), '</script><noscript><img src="http://rt.trafficfacts.com/ns.php?k=', $modSettings['godaddyAnalyticsCode'], '" height="1" width="1" alt=""/></noscript>
+	';
+
+	echo ']]></add>
+		</operation>
+	</file>
+
+	<file name="$themes_dir/core/index.template.php" error="skip">
+		<operation>
+			<search position="after"><![CDATA[</body>]]></search>
+			<add><![CDATA[';
+	global $modSettings;
+	if(!empty($modSettings['godaddyAnalyticsCode']))
+		echo '<script type="text/javascript"><!-- // -->', chr(60), '![CDATA[', 'var TFN=\'\';var TFA=\'\';var TFI=\'0\';var TFL=\'0\';var tf_RetServer="rt.trafficfacts.com";var tf_SiteId="', $modSettings['godaddyAnalyticsCode'], '";var tf_ScrServer=document.location.protocol+"//rt.trafficfacts.com/tf.php?k=', $modSettings['godaddyAnalyticsCode'], ';c=s;v=5";document.write(unescape(\'%3Cscript type="text/JavaScript" src="\'+tf_ScrServer+\'">%3C/script>\'));// ]]', chr(62), '</script><noscript><img src="http://rt.trafficfacts.com/ns.php?k=', $modSettings['godaddyAnalyticsCode'], '" height="1" width="1" alt=""/></noscript>
+	';
+
+	echo ']]></add>
+		</operation>
+	</file>
+	
+	<file name="$themes_dir/classic/index.template.php" error="skip">
+		<operation>
+			<search position="after"><![CDATA[</body>]]></search>
+			<add><![CDATA[';
+	if(!empty($modSettings['godaddyAnalyticsCode']))
+		echo '<script type="text/javascript"><!-- // -->', chr(60), '![CDATA[', 'var TFN=\'\';var TFA=\'\';var TFI=\'0\';var TFL=\'0\';var tf_RetServer="rt.trafficfacts.com";var tf_SiteId="', $modSettings['godaddyAnalyticsCode'], '";var tf_ScrServer=document.location.protocol+"//rt.trafficfacts.com/tf.php?k=', $modSettings['godaddyAnalyticsCode'], ';c=s;v=5";document.write(unescape(\'%3Cscript type="text/JavaScript" src="\'+tf_ScrServer+\'">%3C/script>\'));// ]]', chr(62), '</script><noscript><img src="http://rt.trafficfacts.com/ns.php?k=', $modSettings['godaddyAnalyticsCode'], '" height="1" width="1" alt=""/></noscript>
+	';
+
+	echo ']]></add>
+		</operation>
+	</file>
+	
+	<file name="$themes_dir/babylon/index.template.php" error="skip">
+		<operation>
+			<search position="after"><![CDATA[</body>]]></search>
+			<add><![CDATA[';
+	global $modSettings;
+	if(!empty($modSettings['godaddyAnalyticsCode']))
+		echo '<script type="text/javascript"><!-- // -->', chr(60), '![CDATA[', 'var TFN=\'\';var TFA=\'\';var TFI=\'0\';var TFL=\'0\';var tf_RetServer="rt.trafficfacts.com";var tf_SiteId="', $modSettings['godaddyAnalyticsCode'], '";var tf_ScrServer=document.location.protocol+"//rt.trafficfacts.com/tf.php?k=', $modSettings['godaddyAnalyticsCode'], ';c=s;v=5";document.write(unescape(\'%3Cscript type="text/JavaScript" src="\'+tf_ScrServer+\'">%3C/script>\'));// ]]', chr(62), '</script><noscript><img src="http://rt.trafficfacts.com/ns.php?k=', $modSettings['godaddyAnalyticsCode'], '" height="1" width="1" alt=""/></noscript>
+	';
+
+	echo ']]></add>
+		</operation>
+	</file>
+
+</modification>

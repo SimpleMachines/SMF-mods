@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:AllowAccessInMaintMode</id>
+	<version>1.2</version>
+	
+	<file name="$languagedir/Modifications.russian.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+// Allow Access in Maintenance Mode
+$txt['permissionname_admin_maintmode'] = 'Разрешить просмотр форума во время техобслуживания';
+$txt['permissionhelp_admin_maintmode'] = 'Члены этой группы смогут просматривать и использовать форум даже в режиме техобслуживания.';]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.russian-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+// Allow Access in Maintenance Mode
+$txt['permissionname_admin_maintmode'] = 'Разрешить просмотр форума во время техобслуживания';
+$txt['permissionhelp_admin_maintmode'] = 'Члены этой группы смогут просматривать и использовать форум даже в режиме техобслуживания.';]]></add>
+		</operation>
+	</file>
+	
+</modification>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:AllowAccessInMaintMode</id>
+	<version>1.2</version>
+	
+	<file name="$languagedir/Modifications.english.php">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$txt['permissionname_admin_maintmode'] = 'Allow access in maint. mode';
+$txt['permissionhelp_admin_maintmode'] = 'This permission allows users in this group to enter the forum even while it is in maintenance mode.';
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.english-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$txt['permissionname_admin_maintmode'] = 'Allow access in maint. mode';
+$txt['permissionhelp_admin_maintmode'] = 'This permission allows users in this group to enter the forum even while it is in maintenance mode.';
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.english_british.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$txt['permissionname_admin_maintmode'] = 'Allow access in maint. mode';
+$txt['permissionhelp_admin_maintmode'] = 'This permission allows users in this group to enter the forum even while it is in maintenance mode.';
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.english_british-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$txt['permissionname_admin_maintmode'] = 'Allow access in maint. mode';
+$txt['permissionhelp_admin_maintmode'] = 'This permission allows users in this group to enter the forum even while it is in maintenance mode.';
+]]></add>
+		</operation>
+	</file>
+	
+</modification>

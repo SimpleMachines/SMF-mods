@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<name>[BBCode] Overline</name>
+	<id>iKorp:Overline</id>
+	<version>1.1</version>
+
+	<file name="$languagedir/Modifications.portuguese_pt.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$txt['overline'] = 'Sobre a linha';
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$languagedir/Modifications.portuguese_pt-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$txt['overline'] = 'Sobre a linha';
+]]></add>
+		</operation>
+	</file>
+
+</modification>

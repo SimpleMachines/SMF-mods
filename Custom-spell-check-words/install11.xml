@@ -1,0 +1,63 @@
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>CustomizeTeam:SpellCheckCustomWords</id>
+	<version>1.0.1</version>
+
+	<file name="$sourcedir/Subs-Post.php">
+		<operation>
+			<search position="before"><![CDATA[
+	global $txt, $context, $func;]]></search>
+			<add><![CDATA[
+	global $modSettings;]]></add>
+		</operation>
+
+		<operation>
+			<search position="before"><![CDATA[	$known_words = array('smf', 'php', 'mysql', 'www', 'gif', 'jpeg', 'png', 'http', 'smfisawesome', 'grandia', 'terranigma', 'rpgs');]]></search>
+			<add><![CDATA[
+
+	// Get the user defined words
+	if (empty($modSettings['knownWordsExtras']))
+		$known_words_extras = array();
+	else
+		$known_words_extras = explode(',', $modSettings['knownWordsExtras']);
+
+	// Trim the spaces
+	$extras = array();
+	foreach ($known_words_extras as $word)
+		$extras[] = trim(strtolower($word));
+
+	// Now merge the user defined and the SMF defined ones.
+	$known_words = array_merge($known_words, $extras);]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/ManagePosts.php">
+		<operation>
+			<search position="before"><![CDATA[
+			'enableSpellChecking' => empty($_POST['enableSpellChecking']) ? '0' : '1',]]></search>
+			<add><![CDATA[
+			'knownWordsExtras' => htmlspecialchars($_POST['knownWordsExtras'], ENT_QUOTES),]]></add>
+		</operation>
+	</file>
+
+	<file name="$themedir/Admin.template.php">
+		<operation>
+			<search position="replace"><![CDATA[				<td valign="top">
+					<input type="checkbox" name="enableSpellChecking" id="enableSpellChecking_check"', empty($modSettings['enableSpellChecking']) ? '' : ' checked="checked"', ' class="check" />
+				</td>
+			</tr><tr class="windowbg2">]]></search>
+			<add><![CDATA[				<td valign="top">
+					<input type="checkbox" name="enableSpellChecking" id="enableSpellChecking_check"', empty($modSettings['enableSpellChecking']) ? '' : ' checked="checked"', ' class="check" />
+				</td>
+			</tr><tr class="windowbg2">
+				<th width="50%" align="right">
+					<label for="knownWordsExtras">', $txt['known_words_extras'], '</label>  <span style="font-weight: normal;">(<a href="', $scripturl, '?action=helpadmin;help=knownWordsExtras" onclick="return reqWin(this.href);">?</a>)</span>:
+					<div class="smalltext" style="font-weight: normal;">', $txt['known_words_extras_desc'], '</div>
+				</th>
+				<td valign="top">
+					<input type="text" name="knownWordsExtras" id="knownWordsExtras" value="', isset($modSettings['knownWordsExtras']) ? $modSettings['knownWordsExtras'] : '', '" />
+				</td>
+			</tr><tr class="windowbg2">]]></add>
+		</operation>
+	</file>
+
+</modification>

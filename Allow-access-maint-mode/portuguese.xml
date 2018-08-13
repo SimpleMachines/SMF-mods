@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:AllowAccessInMaintMode</id>
+	<version>1.2</version>
+	
+	<file name="$languagedir/Modifications.portuguese_brazilian.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+// Allow Access in Maintenance Mode
+$txt['permissionname_admin_maintmode'] = 'Permitir acesso em modo Manut.';
+$txt['permissionhelp_admin_maintmode'] = 'Esta permissão permite que este grupo de usuário possa entrar no fórum, mesmo quando ele está em modo de manutenção.';]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.portuguese_pt.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+// Allow Access in Maintenance Mode
+$txt['permissionname_admin_maintmode'] = 'Permitir acesso em modo Manut.';
+$txt['permissionhelp_admin_maintmode'] = 'Esta permissão permite que este grupo de usuário possa entrar no fórum, mesmo quando ele está em modo de manutenção.';]]></add>
+		</operation>
+	</file>
+	
+</modification>

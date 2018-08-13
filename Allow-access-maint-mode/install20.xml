@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:AllowAccessInMaintMode</id>
+	<version>1.2</version>
+
+	<file name="$sourcedir/ManagePermissions.php">
+		<operation>
+			<search position="before"><![CDATA[			'edit_news' => array(false, 'maintenance', 'administrate'),]]></search>
+			<add><![CDATA[
+			'admin_maintmode' => array(false, 'maintenance', 'administrate'),]]></add>
+		</operation>
+	</file>
+	<file name="$boarddir/index.php">
+		<operation>
+			<search position="replace"><![CDATA[if (!empty($maintenance) && !allowedTo('admin_forum'))]]></search>
+			<add><![CDATA[if (!empty($maintenance) && !allowedTo('admin_maintmode'))]]></add>
+		</operation>
+	</file>
+	<file name="$sourcedir/Load.php">
+		<operation>
+			<search position="replace"><![CDATA[if (!empty($maintenance) && !allowedTo('admin_forum'))]]></search>
+			<add><![CDATA[if (!empty($maintenance) && !allowedTo('admin_maintmode'))]]></add>
+		</operation>
+	</file>
+	<file name="$sourcedir/LogInOut.php">
+		<operation>
+			<search position="replace"><![CDATA[if (empty($maintenance) || allowedTo('admin_forum'))]]></search>
+			<add><![CDATA[if (!empty($maintenance) && !$user_info['is_guest'])
+	{
+		// logged in but we are in maintenance mode .... 
+		loadUserSettings();
+		loadPermissions();
+	}
+	if (empty($maintenance) || allowedTo('admin_maintmode'))]]></add>
+		</operation>
+	</file>
+	<file name="$themedir/index.template.php">
+		<operation>
+			<search position="replace"><![CDATA[if ($context['in_maintenance'] && $context['user']['is_admin'])]]></search>
+			<add><![CDATA[if ($context['in_maintenance'] && allowedTo('admin_maintmode'))]]></add>
+		</operation>
+	</file>
+	<file name="$themes_dir/babylon/index.template.php" error="skip">
+		<operation>
+			<search position="replace"><![CDATA[if ($context['in_maintenance'] && $context['user']['is_admin'])]]></search>
+			<add><![CDATA[if ($context['in_maintenance'] && allowedTo('admin_maintmode'))]]></add>
+		</operation>
+	</file>
+	<file name="$themes_dir/classic/index.template.php" error="skip">
+		<operation>
+			<search position="replace"><![CDATA[if ($context['in_maintenance'] && $context['user']['is_admin'])]]></search>
+			<add><![CDATA[if ($context['in_maintenance'] && allowedTo('admin_maintmode'))]]></add>
+		</operation>
+	</file>
+</modification>

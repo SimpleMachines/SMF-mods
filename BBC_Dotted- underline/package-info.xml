@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<name>[BBCode] Dotted Underline</name>
+	<id>iKorp:Dot</id>
+	<type>modification</type>
+	<homepage>http://www.simplemachines.org</homepage>
+	<version>1.1</version>
+	
+	<install for="2.0 RC4, 2.0 RC5, 2.0 - 2.0.99">
+	    <readme type="file" parsebbc="true">readme-english.txt</readme>
+		<code>add_remove_hooks.php</code>
+		<modification type="file">english.xml</modification>
+		<require-file name="Subs-Dottedunderlinebbc.php" destination="$sourcedir" />
+		<require-file name="dot.gif" destination="$imagesdir/bbc" />
+	</install>
+	
+	<uninstall for="2.0 RC4, 2.0 RC5, 2.0 - 2.0.99">
+		<code>add_remove_hooks.php</code>
+		<modification type="file" reverse="true">english.xml</modification>
+		<remove-file name="$sourcedir/Subs-Dottedunderlinebbc.php" />
+		<remove-file name="$imagesdir/bbc/dot.gif" />
+	</uninstall>
+	
+	<install for="2.0 RC2, 2.0 RC3">
+	    <readme type="file" parsebbc="true">readme-english.txt</readme> 
+		<modification type="file">install20pre4.xml</modification>
+		<modification type="file">english.xml</modification>
+		<require-file name="dot.gif" destination="$imagesdir/bbc/" />
+	</install>
+	
+	<uninstall for="2.0 RC2, 2.0 RC3">
+		<modification type="file" reverse="true">install20pre4.xml</modification>
+		<modification type="file" reverse="true">english.xml</modification>
+		<remove-file name="$imagesdir/bbc/dot.gif" />
+	</uninstall>
+	
+</package-info>

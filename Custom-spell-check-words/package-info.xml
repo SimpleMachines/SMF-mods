@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>CustomizeTeam:SpellCheckCustomWords</id>
+	<name>Spell Check Custom Words</name>
+	<version>1.3</version>
+	<type>modification</type>
+
+	<install for="2.0 - 2.0.99">
+		<readme type="file" parsebbc="true">readme-english.txt</readme>
+		<code type="file">add_remove_hooks.php</code>
+		<require-file name="SpellCheckIntegration.php" destination="$sourcedir">Our integration Functions</require-file>
+		<modification type="file">install20.xml</modification>
+		<modification type="file">english20.xml</modification>
+		<redirect url="index.php?action=admin;area=permissions" timeout="10000">redirect-english.txt</redirect>
+	</install>
+	
+	<install for="2.0 RC4, 2.0 RC5">
+		<readme type="file" parsebbc="true">readme-english.txt</readme>
+		<modification type="file">install20rc.xml</modification>
+		<modification type="file">english20.xml</modification>
+		<redirect url="index.php?action=admin;area=permissions" timeout="10000">redirect-english.txt</redirect>
+	</install>
+	
+	<install for="2.0 RC3">
+		<readme type="file" parsebbc="true">readmerc3-english.txt</readme>
+		<modification type="file">installrc3.xml</modification>
+		<modification type="file">englishrc3.xml</modification>
+		<redirect url="index.php?action=admin;area=postsettings;sa=posts" timeout="10000">redirect-english.txt</redirect>
+	</install>
+	
+	<install for="1.1 - 1.1.99">
+		<readme type="file" parsebbc="true">readmerc3-english.txt</readme>
+		<modification type="file">install11.xml</modification>
+		<modification type="file">english11.xml</modification>
+		<redirect url="index.php?action=postsettings" timeout="10000">redirect-english.txt</redirect>
+	</install>
+	
+	<uninstall for="2.0 - 2.0.99">
+		<code type="file">add_remove_hooks.php</code>
+		<remove-file name="$sourcedir/SpellCheckIntegration.php" />
+		<modification type="file" reverse="true">install20.xml</modification>
+		<modification type="file" reverse="true">english20.xml</modification>
+	</uninstall>
+
+	<uninstall for="2.0 RC4, 2.0 RC5">
+		<modification type="file" reverse="true">install20rc.xml</modification>
+		<modification type="file" reverse="true">english20.xml</modification>
+	</uninstall>
+	
+	<uninstall for="2.0 RC3">
+		<modification type="file" reverse="true">installrc3.xml</modification>
+		<modification type="file" reverse="true">englishrc3.xml</modification>
+	</uninstall>
+	
+	<uninstall for="1.1 - 1.1.99">
+		<modification type="file" reverse="true">install11.xml</modification>
+		<modification type="file" reverse="true">english11.xml</modification>
+	</uninstall>
+</package-info>

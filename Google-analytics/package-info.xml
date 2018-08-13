@@ -1,0 +1,25 @@
+<?xml version="1.5"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:GoogleAnalytics</id>
+	<name>Google Analytics Code</name>
+	<version>1.5.1</version>
+	<type>modification</type>
+
+	<install for="2.0 - 2.0.99">
+		<readme type="file" parsebbc="true">readme-english.txt</readme>
+		<code>install.php</code>
+		<require-file name="GoogleAnalytics.php" destination="$sourcedir" />
+		<require-file name="GoogleAnalytics.english.php" destination="$languagedir" />
+		<require-file name="GoogleAnalytics.english-utf8.php" destination="$languagedir" />
+		<redirect url="$scripturl?action=admin;area=modsettings" timeout="3000">redirect.txt</redirect>
+	</install>
+
+	<uninstall for="2.0 - 2.0.99">
+		<code>uninstall-required.php</code>
+		<remove-file name="$sourcedir/GoogleAnalytics.php" />
+		<remove-file name="$languagedir/GoogleAnalytics.english.php" />
+		<remove-file name="$languagedir/GoogleAnalytics.english-utf8.php" />
+	</uninstall>
+
+</package-info>

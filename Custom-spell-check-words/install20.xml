@@ -1,0 +1,107 @@
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>CustomizeTeam:SpellCheckCustomWords</id>
+	<version>1.3</version>
+
+	<file name="$sourcedir/Subs-Post.php">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+function SpellCheckAdd()
+{
+	global $txt, $context, $boarddir;
+
+	if (!isset($_REQUEST['addWord']) && allowedTo('spellcheck_add'))
+		die('Hacking attempt...');
+	$addWord = (string) $_REQUEST['addWord'];
+	
+	// Okay, this looks funny, but it actually fixes a weird bug, so I've been told
+	ob_start();
+	$old = error_reporting(0);
+
+	// Some windows machines don't load pspell properly on the first try.  so a double call is a workaround.
+	pspell_new_personal($boarddir.'/custom_words','en');
+
+	// Next, the specific language dictionary may not exist. So, we try it... but...
+	$pspell_link = pspell_new_personal($boarddir.'/custom_words',$txt['lang_dictionary'], $txt['lang_spelling'], '', strtr($context['character_set'], array('iso-' => 'iso', 'ISO-' => 'iso')), PSPELL_FAST | PSPELL_RUN_TOGETHER);
+
+	// Most people don't have anything but English installed anyway ... So try that as a last resort.
+	if (!$pspell_link)
+		$pspell_link = pspell_new_personal($boarddir.'/custom_words','en', '', '', '', PSPELL_FAST | PSPELL_RUN_TOGETHER);
+
+	error_reporting($old);
+	ob_end_clean();
+
+	// we have a word but do we have a dictonary?
+	if ($pspell_link)
+	{
+		pspell_add_to_personal($pspell_link, $addWord);
+		pspell_save_wordlist($pspell_link);
+	}
+	
+	// done, gracfully end back to the spellcheck window
+	echo '<' . '?xml version="1.0" encoding="', $context['character_set'], '"?', '>';
+	obExit(false);
+}]]></add>
+		</operation>
+
+		<operation>
+			<search position="replace"><![CDATA[function SpellCheck()
+{
+	global $txt, $context, $smcFunc;]]></search>
+			<add><![CDATA[function SpellCheck()
+{
+	global $txt, $context, $smcFunc;
+	global $boarddir;]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[	pspell_new('en');]]></search>
+			<add><![CDATA[	pspell_new_personal($boarddir.'/custom_words','en');]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[	$pspell_link = pspell_new($txt['lang_dictionary'], $txt['lang_spelling'], '', strtr($context['character_set'], array('iso-' => 'iso', 'ISO-' => 'iso')), PSPELL_FAST | PSPELL_RUN_TOGETHER);]]></search>
+			<add><![CDATA[	$pspell_link = pspell_new_personal($boarddir.'/custom_words',$txt['lang_dictionary'], $txt['lang_spelling'], '', strtr($context['character_set'], array('iso-' => 'iso', 'ISO-' => 'iso')), PSPELL_FAST | PSPELL_RUN_TOGETHER);]]></add>
+		</operation>
+
+		<operation>
+			<search position="replace"><![CDATA[		$pspell_link = pspell_new('en', '', '', '', PSPELL_FAST | PSPELL_RUN_TOGETHER);]]></search>
+			<add><![CDATA[		$pspell_link = pspell_new_personal($boarddir.'/custom_words','en', '', '', '', PSPELL_FAST | PSPELL_RUN_TOGETHER);]]></add>
+		</operation>
+
+	</file>
+
+	<file name="$themedir/Post.template.php">
+		<operation>
+			<search position="after"><![CDATA[				<input type="button" name="change" value="', $txt['spellcheck_change'], '" onclick="replaceWord();" class="button_submit" />
+				<input type="button" name="changeall" value="', $txt['spellcheck_change_all'], '" onclick="replaceAll();" class="button_submit" />]]></search>
+			<add><![CDATA[				', (allowedTo('spellcheck_add') ? '<input type="button" name="addword" value="' . $txt['spellcheck_add'] . '" onclick="nextWord(true,true);" class="button_submit" />' : ''), '
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$themedir/scripts/spellcheck.js">
+		<operation>
+			<search position="replace"><![CDATA[function nextWord(ignoreall)
+{
+	// Push ignored word onto ignoredWords array.
+	if (ignoreall)
+		ignoredWords[misps[wordindex].word] = true;]]></search>
+			<add><![CDATA[function nextWord(ignoreall,addNewWord)
+{
+	// Push ignored word onto ignoredWords array.
+	if (ignoreall)
+		ignoredWords[misps[wordindex].word] = true;
+		
+	// Adding this word to a custom word list?
+	if (addNewWord)
+	{
+		var addWord;
+		addWord = misps[wordindex].word;
+		if (addWord)
+			getXMLDocument('index.php?action=spellcheckadd;addWord=' + addWord, function() {});
+	}]]></add>
+		</operation>
+	</file>
+	
+</modification>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:GoDaddyAnalytics</id>
+	<version>1.1</version>
+
+	<file name="$languagedir/Help.english_british.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$helptxt['godaddyAnalyticsCode'] = 'Here you add your publisher code for GoDaddy Analytics, e.g. 123456abcdefgh12345678hgfedcba12345678abc1234567 exactly as GoDaddy provided it, then GoDaddy Analytics should be added to your forum for you.';
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Help.english_british-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$helptxt['godaddyAnalyticsCode'] = 'Here you add your publisher code for GoDaddy Analytics, e.g. 123456abcdefgh12345678hgfedcba12345678abc1234567 exactly as GoDaddy provided it, then GoDaddy Analytics should be added to your forum for you.';
+]]></add>
+		</operation>
+	</file>	
+
+	<file name="$languagedir/Modifications.english_british.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$txt['godaddyAnalyticsCode'] = 'GoDaddy Analytics code';
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.english_british-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$txt['godaddyAnalyticsCode'] = 'GoDaddy Analytics code';
+]]></add>
+		</operation>
+	</file>
+
+</modification>

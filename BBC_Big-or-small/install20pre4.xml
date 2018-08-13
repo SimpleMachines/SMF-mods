@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<name>[BBCode] Big or Small</name>
+	<id>iKorp:BigOrSmall</id>
+	<version>1.0</version>
+	
+	<file name="$sourcedir/Subs.php">
+		<operation>
+			<search position="after"><![CDATA[			array(
+				'tag' => 'nobbc',
+				'type' => 'unparsed_content',
+				'content' => '$1',
+			),
+]]></search>
+			<add><![CDATA[			array(
+				'tag' => 'big',
+				'before' => '<big>',
+				'after' => '</big>',
+			),
+			array(
+				'tag' => 'small',
+				'before' => '<small>',
+				'after' => '</small>',
+			),
+]]></add>
+		</operation>
+</file>
+	<file name="$sourcedir/Subs-Editor.php">
+		<operation>
+			<search position="after"><![CDATA[array(
+				'image' => 'right',
+				'code' => 'right',
+				'before' => '[right]',
+				'after' => '[/right]',
+				'description' => $txt['right_align']
+			),]]></search>
+			<add><![CDATA[array(
+				'image' => 'small',
+				'code' => 'small',
+				'before' => '[small]',
+				'after' => '[/small]',
+				'description' => $txt['smallbbcode']
+			),
+			array(
+				'image' => 'big',
+				'code' => 'big',
+				'before' => '[big]',
+				'after' => '[/big]',
+				'description' => $txt['bigbbcode']
+			),
+			]]></add>
+		</operation>
+	</file>
+
+</modification>

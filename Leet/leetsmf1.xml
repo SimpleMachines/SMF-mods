@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>customization_team:leet</id>
+	<name>leet</name>
+	<version>1.1</version>
+
+	<file name="$sourcedir/Load.php">
+		<operation>
+			<search position="replace"><![CDATA[
+		'posts' => $profile['posts'] > 100000 ? $txt[683] : comma_format($profile['posts']),
+]]></search>
+			<add><![CDATA[
+		'posts' => $profile['posts'] > 100000 ? $txt[683] : ($profile['posts'] == 1337 ? 'leet' : comma_format($profile['posts'])),
+]]></add>
+		</operation>
+	</file>
+</modification>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:DisableEval</id>
+	<version>1.2</version>
+
+	<file name="$sourcedir/ManageServer.php">
+		<operation>
+			<search position="before"><![CDATA[array('int', 'databaseSession_lifetime'),
+]]></search>
+			<add><![CDATA[		'',
+		array('check', 'disableTemplateEval'),
+]]></add>
+		</operation>
+	</file>
+
+</modification>

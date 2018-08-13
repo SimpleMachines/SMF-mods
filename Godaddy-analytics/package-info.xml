@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:GoDaddyAnalytics</id>
+	<name>GoDaddy Analytics Code</name>
+	<version>1.2</version>
+	<type>modification</type>
+	
+	<install for="2.0 RC1.2, 2.0 RC2, 2.0 RC3">
+		<readme type="file" parsebbc="true">readme-english.txt</readme>
+		<modification type="file">install20-pre4.xml</modification>
+		<modification type="file">english.xml</modification>
+		<modification type="file">english_british.xml</modification>
+		<redirect url="index.php?action=admin;area=featuresettings;sa=basic" timeout="10000">redirect-english.txt</redirect>
+	</install>
+	
+	<uninstall for="2.0 RC1.2, 2.0 RC2, 2.0 RC3">
+		<modification type="file" reverse="true">install20-pre4.xml</modification>
+		<modification type="file" reverse="true">english.xml</modification>
+		<modification type="file" reverse="true">english_british.xml</modification>
+	</uninstall>
+	
+	<install for="2.0 RC4, 2.0 RC5, 2.0 - 2.0.99">
+		<readme type="file" parsebbc="true">readme-english.txt</readme>
+		<code>add_remove_hooks.php</code>
+		<modification type="file">install20.xml</modification>
+		<modification type="file">english.xml</modification>
+		<modification type="file">english_british.xml</modification>
+		<redirect url="index.php?action=admin;area=featuresettings;sa=basic" timeout="10000">redirect-english.txt</redirect>
+	</install>
+	
+	<uninstall for="2.0 RC4, 2.0 RC5, 2.0 - 2.0.99">
+		<code>add_remove_hooks.php</code>
+		<modification type="file" reverse="true">install20.xml</modification>
+		<modification type="file" reverse="true">english.xml</modification>
+		<modification type="file" reverse="true">english_british.xml</modification>
+	</uninstall>
+	
+	<install for="2.1 - 2.99.99">
+		<readme type="inline" parsebbc="true">[color=red]Warning! This mod has not been tested on your version of SMF.
+		Do not proceed if you get errors![/color]</readme>
+		<code>add_remove_hooks.php</code>
+		<modification type="file">install20.xml</modification>
+		<modification type="file">english.xml</modification>
+		<modification type="file">english_british.xml</modification>
+	</install>
+	
+	<uninstall for="2.1 - 2.99.99">
+		<code>add_remove_hooks.php</code>
+		<modification type="file" reverse="true">install20.xml</modification>
+		<modification type="file" reverse="true">english.xml</modification>
+		<modification type="file" reverse="true">english_british.xml</modification>
+	</uninstall>
+	
+	<install for="1.1 - 1.1.99">
+		<readme type="file" parsebbc="true">readme-english.txt</readme>
+		<modification type="file">install11.xml</modification>
+		<modification type="file">english.xml</modification>
+		<modification type="file">english_british.xml</modification>
+		<redirect url="index.php?action=featuresettings" timeout="10000">redirect-english.txt</redirect>
+	</install>
+	
+	<uninstall for="1.1 - 1.1.99">
+		<modification type="file" reverse="true">install11.xml</modification>
+		<modification type="file" reverse="true">english.xml</modification>
+		<modification type="file" reverse="true">english_british.xml</modification>
+	</uninstall>
+</package-info>

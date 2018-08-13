@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:DisableEval</id>
+	<version>1.2</version>
+
+	<file name="$sourcedir/ManageServer.php">
+		<operation>
+			<search position="before"><![CDATA[array('disableHostnameLookup', $txt['disableHostnameLookup'], 'db', 'check', null, 'disableHostnameLookup'),
+]]></search>
+			<add><![CDATA[		array('disableTemplateEval', $txt['disableTemplateEval'], 'db', 'check', null, 'disableTemplateEval'),
+]]></add>
+		</operation>
+	</file>
+
+</modification>

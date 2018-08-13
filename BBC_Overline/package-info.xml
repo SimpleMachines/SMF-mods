@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<name>[BBCode] Overline</name>
+	<id>iKorp:Overline</id>
+	<type>modification</type>
+	<homepage>http://www.simplemachines.org</homepage>
+	<version>1.1</version>
+	
+	<install for="2.0 - 2.0.99">
+		<readme type="file" parsebbc="true">readme-english.txt</readme>
+		<code>add_hooks.php</code>
+		<modification type="file">english.xml</modification>
+		<modification type="file">brazilian.xml</modification>
+		<modification type="file">german.xml</modification>
+		<modification type="file">portuguese.xml</modification>
+		<require-file name="Subs-Overlinebbc.php" destination="$sourcedir" />
+		<require-file name="overline.gif" destination="$imagesdir/bbc" />
+	</install>
+
+	<uninstall for="2.0 - 2.0.99">
+		<code>remove_hooks.php</code>
+		<modification type="file" reverse="true">english.xml</modification>
+		<modification type="file" reverse="true">brazilian.xml</modification>
+		<modification type="file" reverse="true">german.xml</modification>
+		<modification type="file" reverse="true">portuguese.xml</modification>
+		<remove-file name="$sourcedir/Subs-Overlinebbc.php" />
+		<remove-file name="$imagesdir/bbc/overline.gif" />
+	</uninstall>
+
+</package-info>

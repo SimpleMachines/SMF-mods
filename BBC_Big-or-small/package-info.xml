@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<name>[BBCode] Big or Small</name>
+	<id>iKorp:BigOrSmall</id>
+	<type>modification</type>
+	<homepage>http://www.simplemachines.org</homepage>
+	<version>1.0</version>
+
+	<install for="2.0 RC4, 2.0 RC5, 2.0 - 2.0.99">
+		<readme type="file" parsebbc="true">readme-english.txt</readme>
+		<code>add_remove_hooks.php</code>
+		<modification type="file">english.xml</modification>
+		<require-file name="Subs-Bigorsmallbbc.php" destination="$sourcedir" />
+		<require-file name="tiny.gif" destination="$imagesdir/bbc" />
+		<require-file name="large.gif" destination="$imagesdir/bbc" />
+	</install>
+
+	<uninstall for="2.0 RC4, 2.0 RC5, 2.0 - 2.0.99">
+		<code>add_remove_hooks.php</code>
+		<modification type="file" reverse="true">english.xml</modification>
+		<remove-file name="$sourcedir/Subs-Bigorsmallbbc.php" />
+		<remove-file name="$imagesdir/bbc/tiny.gif" />
+		<remove-file name="$imagesdir/bbc/large.gif" />
+	</uninstall>
+
+	<install for="2.0 RC2, 2.0 RC3">
+		<readme type="file" parsebbc="true">readme-english.txt</readme>
+		<modification type="file">install20pre4.xml</modification>
+		<modification type="file">english.xml</modification>
+		<require-file name="tiny.gif" destination="$imagesdir/bbc" />
+		<require-file name="large.gif" destination="$imagesdir/bbc" />
+	</install>
+
+	<uninstall for="2.0 RC2, 2.0 RC3">
+		<modification type="file" reverse="true">install20pre4.xml</modification>
+		<modification type="file" reverse="true">english.xml</modification>
+		<remove-file name="$imagesdir/bbc/tiny.gif" />
+		<remove-file name="$imagesdir/bbc/large.gif" />
+	</uninstall>
+</package-info>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://dev.smfchat.com/xsl/modification.xsl"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:DisableEval</id>
+	<version>1.2</version>
+
+	<file name="$languagedir/Help.english_british.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$helptxt['disableTemplateEval'] = 'This disables the check SMF runs in templates before outputting them to the user. This can be useful for debugging, and on some host configurations will improve SMF performance.';
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Help.english_british-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$helptxt['disableTemplateEval'] = 'This disables the check SMF runs in templates before outputting them to the user. This can be useful for debugging, and on some host configurations will improve SMF performance.';
+]]></add>
+		</operation>
+	</file>	
+
+	<file name="$languagedir/Modifications.english_british.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$txt['disableTemplateEval'] = 'Disable template evaluation?';
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.english_british-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$txt['disableTemplateEval'] = 'Disable template evaluation?';
+]]></add>
+		</operation>
+	</file>
+
+</modification>

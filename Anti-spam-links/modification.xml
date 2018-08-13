@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>CustomizeTeam:AntiSpamLinks</id>
+	<version>1.0</version>
+
+<file name="$sourcedir/Display.php">
+	<operation>
+		<search position="replace"><![CDATA[
+	// Run BBC interpreter on the message.
+	$message['body'] = parse_bbc($message['body'], $message['smileys_enabled'], $message['id_msg']);
+]]></search>
+		<add><![CDATA[
+
+	// Start of Anti-Spam-Links mod
+
+	$posts = $memberContext[$message['id_member']]['is_guest'] ? 0 : $memberContext[$message['id_member']]['posts'];
+
+	// End of Anti-Spam-Links mod
+
+	// Run BBC interpreter on the message.
+	$message['body'] = parse_bbc($message['body'], $message['smileys_enabled'], $message['id_msg'], NULL, (int) $message['id_member'], $posts);
+ 
+]]></add>
+	</operation>
+</file>
+
+<file name="$sourcedir/Load.php">
+	<operation>
+		<search position="replace"><![CDATA[
+	$profile['signature'] = parse_bbc($profile['signature'], true, 'sig' . $profile['id_member']);
+]]></search>
+		<add><![CDATA[
+	$profile['signature'] = parse_bbc($profile['signature'], true, 'sig' . $profile['id_member'], NULL, $profile['id_member'], $profile['posts']);
+]]></add>
+	</operation>
+</file>
+
+<file name="$sourcedir/ManageSettings.php">
+	<operation>
+		<search position="before"><![CDATA[
+		// Mod authors, add any settings UNDER this line. Include a comma at the end of the line and don't remove this statement!!
+]]></search>
+		<add><![CDATA[
+		'',
+		$txt['anti_spam_links'],
+		array('int', 'anti_spam_links_nolinks', 'subtext' => $txt['anti_spam_links_zero_disable']),
+		array('int', 'anti_spam_links_newbielinks', 'subtext' => $txt['anti_spam_links_zero_disable']),
+		array('int', 'anti_spam_links_nofollowlinks', 'subtext' => $txt['anti_spam_links_zero_disable']),
+		array('select', 'anti_spam_links_guests', array(&$txt['anti_spam_links_guests_opt0'], &$txt['anti_spam_links_guests_opt1'], &$txt['anti_spam_links_guests_opt2'], &$txt['anti_spam_links_guests_opt3'])),
+		'',
+]]></add>
+	</operation>
+
+	<operation>
+		<search position="before"><![CDATA[
+		// This line is to help mod authors do a search/add after if you want to add something here. Keyword: FOOT TAPPING SUCKS!
+]]></search>
+		<add><![CDATA[
+		// Start of Anti-Spam-Links mod
+
+		// Nofollow links will not apply if its less than newbie links. So we need to fix it.
+		if (!empty($save_vars['anti_spam_links_newbielinks']) && !empty($save_vars['anti_spam_links_nofollowlinks']))
+			if ((int) $save_vars['anti_spam_links_newbielinks'] >= (int) $save_vars['anti_spam_links_nofollowlinks'])
+				(int) $save_vars['anti_spam_links_nofollowlinks'] = (int) $save_vars['anti_spam_links_newbielinks'] + 1;
+
+		// End of Anti-Spam-Links mod
+
+]]></add>
+	</operation>
+</file>
+
+<file name="$sourcedir/Post.php">
+	<operation>
+		<search position="after"><![CDATA[
+		// Any errors occurred?
+		if (!empty($context['post_error']))
+		{
+]]></search>
+		<add><![CDATA[
+		// Start of Anti-Spam-Links mod
+
+		// Previewing and modifying an existing post we need the original posters post count.
+		if (isset($_REQUEST['msg']))
+		{
+			$request = $smcFunc['db_query']('', '
+				SELECT IFNULL(m.id_member, 0) AS poster_id, IFNULL(mem.posts, 0) AS postcount
+				FROM {db_prefix}messages AS m
+					LEFT JOIN {db_prefix}members AS mem ON (m.id_member = mem.id_member)
+				WHERE id_msg = {int:id_msg}',
+				array(
+					'id_msg' => $_REQUEST['msg'],
+				)
+			);
+			// Error, so treat them as a guest.
+			if ($smcFunc['db_num_rows']($request) == 0)
+				$poster_id = $posts = 0;
+
+			list($poster_id, $posts) = $smcFunc['db_fetch_row']($request);
+			$smcFunc['db_free_result']($request);
+		}
+		else
+		{
+			$poster_id = $user_info['is_guest'] ? 0 : $user_info['id'];
+			$posts = $user_info['is_guest'] ? 0 : $user_info['posts'];
+		}
+		// Are we editing our own post
+		$own_post = $poster_id != $user_info['id'];
+
+		global $boardurl;
+		// Ugly but necessary.
+		// Takes into account moderation when deciding whether to show the post error.
+		if((($own_post && $user_info['is_guest']) || (!$own_post && empty($poster_id)) && $modSettings['anti_spam_links_guests'] == 1) || ((($own_post && !$user_info['is_guest']) || !$own_post && !empty($poster_id)) && !empty($modSettings['anti_spam_links_nolinks']) && $posts < $modSettings['anti_spam_links_nolinks']))
+			// Your not allowed to use links, so give them an error.
+			if (preg_match('~<a href="(?!' . preg_quote($boardurl) . ')~i', parse_bbc($form_message, false)) > 0)
+				$context['post_error']['anti_spam_links_nolinks_' . ($user_info['is_guest'] ? 'guest' : 'member')] = true;
+
+		// End of Anti-Spam-Links mod
+
+]]></add>
+	</operation>
+
+	<operation>
+		<search position="replace"><![CDATA[
+				if (!in_array($post_error, array('new_reply', 'not_approved', 'new_replies', 'old_topic', 'need_qr_verification')))
+]]></search>
+		<add><![CDATA[
+				if (!in_array($post_error, array('new_reply', 'not_approved', 'new_replies', 'old_topic', 'need_qr_verification', 'anti_spam_links_nolinks_guest', 'anti_spam_links_nolinks_member')))
+]]></add>
+	</operation>
+
+	<operation>
+		<search position="replace"><![CDATA[
+			$context['preview_message'] = parse_bbc($context['preview_message'], isset($_REQUEST['ns']) ? 0 : 1);
+]]></search>
+		<add><![CDATA[
+			$context['preview_message'] = parse_bbc($context['preview_message'], isset($_REQUEST['ns']) ? 0 : 1, NULL, NULL, $poster_id, $posts);
+]]></add>
+	</operation>
+
+	<operation>
+		<search position="after"><![CDATA[
+	// Any mistakes?
+	if (!empty($post_errors))
+	{
+]]></search>
+		<add><![CDATA[
+	// Start of Anti-Spam-Links mod
+
+	$poster_id = empty($row['id_member']) ? 0 : (int) $row['id_member'] ;
+	$own_post = $poster_id != $user_info['id'];
+
+	// Quick Edit - Not modifying your own post, then we need the original posters post count.
+	if (!$own_post)
+	{
+		// Obtain the members post count.
+		if (!empty($poster_id))
+		{
+			$request = $smcFunc['db_query']('', '
+				SELECT posts
+				FROM {db_prefix}members
+				WHERE id_member = {int:id_member}',
+				array(
+					'id_member' => $poster_id,
+				)
+			);
+			// Error, so treat them as a guest.
+			if ($smcFunc['db_num_rows']($request) == 0)
+				$poster_id = $posts = 0;
+
+			list($posts) = $smcFunc['db_fetch_row']($request);
+			$smcFunc['db_free_result']($request);
+		}
+		else
+			$posts = 0;
+	}
+	else
+		// Editing own post
+		$posts = $user_info['is_guest'] ? 0 : $user_info['posts'];
+
+	global $boardurl;
+	// Ugly but necessary.
+	// Takes into account moderation when deciding whether to show the post error.
+	if((($own_post && $user_info['is_guest']) || (!$own_post && empty($poster_id)) && $modSettings['anti_spam_links_guests'] == 1) || ((($own_post && !$user_info['is_guest']) || !$own_post && !empty($poster_id)) && !empty($modSettings['anti_spam_links_nolinks']) && $posts < $modSettings['anti_spam_links_nolinks']))
+		// Your not allowed to use links, so give them an error.
+		if (preg_match('~<a href="(?!' . preg_quote($boardurl) . ')~i', parse_bbc($_POST['message'], false)) > 0)
+			$post_errors[] = 'anti_spam_links_nolinks_' . ($user_info['is_guest'] ? 'guest' : 'member');
+
+	// End of Anti-Spam-Links mod
+
+]]></add>
+	</operation>
+
+	<operation>
+		<search position="replace"><![CDATA[
+		SELECT IFNULL(mem.real_name, m.poster_name) AS poster_name, m.poster_time, m.body, m.smileys_enabled, m.id_msg
+]]></search>
+		<add><![CDATA[
+		SELECT IFNULL(mem.real_name, m.poster_name) AS poster_name, m.poster_time, m.body, m.smileys_enabled, m.id_msg, IFNULL(mem.posts, 0) AS postcount, IFNULL(m.id_member, 0) AS poster_id
+]]></add>
+	</operation>
+
+	<operation>
+		<search position="replace"><![CDATA[
+		$row['body'] = parse_bbc($row['body'], $row['smileys_enabled'], $row['id_msg']);
+]]></search>
+		<add><![CDATA[
+		$row['body'] = parse_bbc($row['body'], $row['smileys_enabled'], $row['id_msg'], NULL, (int) $row['poster_id'], (int) $row['postcount']);
+]]></add>
+	</operation>
+
+	<operation>
+		<search position="before"><![CDATA[
+				$post_errors[] = 'no_message';
+				unset($_POST['message']);
+			}
+]]></search>
+		<add><![CDATA[
+
+			// Start of Anti-Spam-Links mod
+
+			if (isset($_POST['message']))
+			{
+				$poster_id = empty($row['id_member']) ? 0 : (int) $row['id_member'] ;
+				$own_post = $poster_id != $user_info['id'];
+
+				// Quick Edit - Not modifying your own post, then we need the original posters post count.
+				if (!$own_post)
+				{
+					// Obtain the members post count.
+					if (!empty($poster_id))
+					{
+						$request = $smcFunc['db_query']('', '
+							SELECT posts
+							FROM {db_prefix}members
+							WHERE id_member = {int:id_member}',
+							array(
+								'id_member' => $poster_id,
+							)
+						);
+						// Error, so treat them as a guest.
+						if ($smcFunc['db_num_rows']($request) == 0)
+							$poster_id = $posts = 0;
+
+						list($posts) = $smcFunc['db_fetch_row']($request);
+						$smcFunc['db_free_result']($request);
+					}
+					else
+						$posts = 0;
+				}
+				else
+					// Editing own post
+					$posts = $user_info['is_guest'] ? 0 : $user_info['posts'];
+
+				global $boardurl;
+				// Ugly but necessary.
+				// Takes into account moderation when deciding whether to show the post error.
+				if((($own_post && $user_info['is_guest']) || (!$own_post && empty($poster_id)) && $modSettings['anti_spam_links_guests'] == 1) || ((($own_post && !$user_info['is_guest']) || !$own_post && !empty($poster_id)) && !empty($modSettings['anti_spam_links_nolinks']) && $posts < $modSettings['anti_spam_links_nolinks']))
+					// Your not allowed to use links, so give them an error.
+					if (preg_match('~<a href="(?!' . preg_quote($boardurl) . ')~i', parse_bbc($_POST['message'], false)) > 0)
+					{
+						$post_errors[] = 'anti_spam_links_nolinks_' . ($user_info['is_guest'] ? 'guest' : 'member');
+						unset($_POST['message']);
+					}
+			}
+
+			// End of Anti-Spam-Links mod
+
+]]></add>
+	</operation>
+
+	<!--// *** //-->
+	<operation>
+		<search position="replace"><![CDATA[
+			$context['message']['body'] = parse_bbc($context['message']['body'], $row['smileys_enabled'], $row['id_msg']);
+]]></search>
+		<add><![CDATA[
+			$context['message']['body'] = parse_bbc($context['message']['body'], $row['smileys_enabled'], $row['id_msg'], NULL, $poster_id, $posts);
+]]></add>
+	</operation>
+
+	<operation>
+		<search position="replace"><![CDATA[
+				'error_in_body' => in_array('no_message', $post_errors) || in_array('long_message', $post_errors),
+]]></search>
+		<add><![CDATA[
+				'error_in_body' => in_array('no_message', $post_errors) || in_array('long_message', $post_errors) || in_array('anti_spam_links_nolinks_member', $post_errors) || in_array('anti_spam_links_nolinks_guest', $post_errors),
+]]></add>
+	</operation>
+</file>
+
+<file name="$sourcedir/Subs.php">
+	<operation>
+		<search position="replace"><![CDATA[
+function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = array())
+]]></search>
+		<add><![CDATA[
+function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = array(), $poster_id = '', $posts = '')
+]]></add>
+	</operation>
+
+	<operation>
+		<search position="before"><![CDATA[
+	// Cleanup whitespace.
+	$message = strtr($message, array('  ' => ' &nbsp;', "\r" => '', "\n" => '<br />', '<br /> ' => '<br />&nbsp;', '&#13;' => "\n"));
+]]></search>
+		<add><![CDATA[
+	// Start of Anti-Spam-Links mod
+	global $boardurl;
+
+	// Links get made non-active with newbielinks prefix
+	if ((($poster_id === 0 && $modSettings['anti_spam_links_guests'] == 2) || (!empty($poster_id) && !empty($modSettings['anti_spam_links_newbielinks']) && $posts != '' && $posts < $modSettings['anti_spam_links_newbielinks'])) && strpos($message, '<a href') !== false)
+		$message = preg_replace('~<a href="(?!' . preg_quote($boardurl) . ')([^"]*?)"(?:[^>]*?)>(?:.*?)</a>~i', $txt['anti_spam_links_newbielink'] . '$1 <span class="alert smalltext" title="' . sprintf($txt['anti_spam_links_newbielinks_info'], $modSettings['anti_spam_links_newbielinks']) . '">' . $txt['anti_spam_links_nonactive'] . '</span>', $message);
+
+	// Links get rel="nofollow" so no page rank for you.
+	elseif ((($poster_id === 0 && $modSettings['anti_spam_links_guests'] == 3) || (!empty($poster_id) && !empty($modSettings['anti_spam_links_nofollowlinks']) && $posts != '' && $posts < $modSettings['anti_spam_links_nofollowlinks'])) && strpos($message, '<a href') !== false)
+		$message = preg_replace('~(<a)( href="(?!' . preg_quote($boardurl) . ')(?:[^"]*?)"(?:[^>]*?)\>(?:.*?)</a>)~i', '$1 rel="nofollow"$2 <span class="alert smalltext" title="' . sprintf($txt['anti_spam_links_nofollowlinks_info'], $modSettings['anti_spam_links_nofollowlinks']) . '">' . $txt['anti_spam_links_nofollow'] . '</span>', $message);
+
+	// End of Anti-Spam-Links mod
+]]></add>
+	</operation>
+</file>
+
+	<file name="$languagedir/Modifications.english.php">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+global $boardurl;
+$txt['anti_spam_links'] = 'Anti-Spam-Links Mod Settings';
+$txt['error_anti_spam_links_nolinks_guest'] = 'Sorry, guests are not allowed to post external links.';
+$txt['error_anti_spam_links_nolinks_member'] = 'Sorry, you are not allowed to post external links.';
+$txt['anti_spam_links_newbielink'] = ' newbielink:';
+$txt['anti_spam_links_nonactive'] = '[nonactive]';
+$txt['anti_spam_links_newbielinks_info'] = 'To curb spam posts, external links are [nonactive] until %1$s posts';
+$txt['anti_spam_links_nofollowlinks_info'] = 'To curb spam posts, external links are set [nofollow] (which means no pagerank) until %1$s posts';
+$txt['anti_spam_links_nofollow'] = '[nofollow]';
+$txt['anti_spam_links_nolinks'] = 'Post count under which members cannot post external links';
+$txt['anti_spam_links_newbielinks'] = 'Post count under which members external links are shown [nonactive] and without http://';
+$txt['anti_spam_links_nofollowlinks'] = 'Post count under which members external links are set [nofollow]';
+$txt['anti_spam_links_zero_disable'] = '[Excludes any ' . $boardurl . ' links]<br />(Use 0 to disable)';
+$txt['anti_spam_links_guests'] = 'Guests... ';
+$txt['anti_spam_links_guests_opt0'] = '(disable mod for guests)';
+$txt['anti_spam_links_guests_opt1'] = 'can not post links';
+$txt['anti_spam_links_guests_opt2'] = 'links are shown [nonactive]';
+$txt['anti_spam_links_guests_opt3'] = 'links are set [nofollow]';
+]]></add>
+		</operation>
+	</file>
+	<file name="$languagedir/Modifications-utf8.english.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+global $boardurl;
+$txt['anti_spam_links'] = 'Anti-Spam-Links Mod Settings';
+$txt['error_anti_spam_links_nolinks_guest'] = 'Sorry, guests are not allowed to post external links.';
+$txt['error_anti_spam_links_nolinks_member'] = 'Sorry, you are not allowed to post external links.';
+$txt['anti_spam_links_newbielink'] = ' newbielink:';
+$txt['anti_spam_links_nonactive'] = '[nonactive]';
+$txt['anti_spam_links_newbielinks_info'] = 'To curb spam posts, external links are [nonactive] until %1$s posts';
+$txt['anti_spam_links_nofollowlinks_info'] = 'To curb spam posts, external links are set [nofollow] (which means no pagerank) until %1$s posts';
+$txt['anti_spam_links_nofollow'] = '[nofollow]';
+$txt['anti_spam_links_nolinks'] = 'Post count under which members cannot post external links';
+$txt['anti_spam_links_newbielinks'] = 'Post count under which members external links are shown [nonactive] and without http://';
+$txt['anti_spam_links_nofollowlinks'] = 'Post count under which members external links are set [nofollow]';
+$txt['anti_spam_links_zero_disable'] = '[Excludes any ' . $boardurl . ' links]<br />(Use 0 to disable)';
+$txt['anti_spam_links_guests'] = 'Guests... ';
+$txt['anti_spam_links_guests_opt0'] = '(disable mod for guests)';
+$txt['anti_spam_links_guests_opt1'] = 'can not post links';
+$txt['anti_spam_links_guests_opt2'] = 'links are shown [nonactive]';
+$txt['anti_spam_links_guests_opt3'] = 'links are set [nofollow]';
+]]></add>
+		</operation>
+	</file>
+</modification>

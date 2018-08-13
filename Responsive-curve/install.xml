@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>smf:responsive</id>
+	<name>Responsive Curve</name>
+	<version>1.0 Beta 3</version>
+
+	<file name="$themedir/index.template.php">
+		<operation>
+			<search position="replace"><![CDATA[
+	<title>', $context['page_title_html_safe'], '</title>';
+]]></search> 
+			<add><![CDATA[
+	<title>', $context['page_title_html_safe'], '</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />';
+]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+	<link rel="stylesheet" type="text/css" href="', $settings['theme_url'], '/css/index', $context['theme_variant'], '.css?fin20" />';
+]]></search> 
+			<add><![CDATA[
+	<link rel="stylesheet" type="text/css" href="', $settings['theme_url'], '/css/index', $context['theme_variant'], '.css?fin20" />
+	<link rel="stylesheet" type="text/css" href="', $settings['theme_url'], '/css/responsive', $context['theme_variant'], '.css?fin20" />';
+]]></add>
+		</operation>
+
+		<operation>
+			<search position="replace"><![CDATA[					<a class="', $button['active_button'] ? 'active ' : '', 'firstlevel" href="', $button['href'], '"', isset($button['target']) ? ' target="' . $button['target'] . '"' : '', '>]]></search> 
+			<add><![CDATA[					<a class="', $button['active_button'] ? 'active ' : '', 'firstlevel" href="', $button['href'], '"', isset($button['target']) ? ' target="' . $button['target'] . '"' : '', '>
+						<span class="responsive_menu ', $act, '"></span>
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$themedir/Memberlist.template.php">
+		<operation>
+			<search position="replace"><![CDATA[
+					<td class="windowbg2">', $member['show_email'] == 'no' ? '' : '<a href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $member['id'] . '" rel="nofollow"><img src="' . $settings['images_url'] . '/email_sm.gif" alt="' . $txt['email'] . '" title="' . $txt['email'] . ' ' . $member['name'] . '" /></a>', '</td>';
+
+		if (!isset($context['disabled_fields']['website']))
+			echo '
+					<td class="windowbg">', $member['website']['url'] != '' ? '<a href="' . $member['website']['url'] . '" target="_blank" class="new_win"><img src="' . $settings['images_url'] . '/www.gif" alt="' . $member['website']['title'] . '" title="' . $member['website']['title'] . '" /></a>' : '', '</td>';
+
+		// ICQ?
+		if (!isset($context['disabled_fields']['icq']))
+			echo '
+					<td class="windowbg2">', $member['icq']['link'], '</td>';
+
+		// AIM?
+		if (!isset($context['disabled_fields']['aim']))
+			echo '
+					<td class="windowbg2">', $member['aim']['link'], '</td>';
+
+		// YIM?
+		if (!isset($context['disabled_fields']['yim']))
+			echo '
+					<td class="windowbg2">', $member['yim']['link'], '</td>';
+
+		// MSN?
+		if (!isset($context['disabled_fields']['msn']))
+			echo '
+					<td class="windowbg2">', $member['msn']['link'], '</td>';
+
+		// Group and date.
+		echo '
+					<td class="windowbg lefttext">', empty($member['group']) ? $member['post_group'] : $member['group'], '</td>
+					<td class="windowbg lefttext">', $member['registered_date'], '</td>';
+
+		if (!isset($context['disabled_fields']['posts']))
+		{
+			echo '
+					<td class="windowbg2" style="white-space: nowrap" width="15">', $member['posts'], '</td>
+					<td class="windowbg statsbar" width="120">';
+]]></search> 
+			<add><![CDATA[
+					<td class="windowbg2 hidden">', $member['show_email'] == 'no' ? '' : '<a href="' . $scripturl . '?action=emailuser;sa=email;uid=' . $member['id'] . '" rel="nofollow"><img src="' . $settings['images_url'] . '/email_sm.gif" alt="' . $txt['email'] . '" title="' . $txt['email'] . ' ' . $member['name'] . '" /></a>', '</td>';
+
+		if (!isset($context['disabled_fields']['website']))
+			echo '
+					<td class="windowbg hidden">', $member['website']['url'] != '' ? '<a href="' . $member['website']['url'] . '" target="_blank" class="new_win"><img src="' . $settings['images_url'] . '/www.gif" alt="' . $member['website']['title'] . '" title="' . $member['website']['title'] . '" /></a>' : '', '</td>';
+
+		// ICQ?
+		if (!isset($context['disabled_fields']['icq']))
+			echo '
+					<td class="windowbg2 hidden">', $member['icq']['link'], '</td>';
+
+		// AIM?
+		if (!isset($context['disabled_fields']['aim']))
+			echo '
+					<td class="windowbg2 hidden">', $member['aim']['link'], '</td>';
+
+		// YIM?
+		if (!isset($context['disabled_fields']['yim']))
+			echo '
+					<td class="windowbg2 hidden">', $member['yim']['link'], '</td>';
+
+		// MSN?
+		if (!isset($context['disabled_fields']['msn']))
+			echo '
+					<td class="windowbg2 hidden">', $member['msn']['link'], '</td>';
+
+		// Group and date.
+		echo '
+					<td class="windowbg lefttext">', empty($member['group']) ? $member['post_group'] : $member['group'], '</td>
+					<td class="windowbg lefttext hidden">', $member['registered_date'], '</td>';
+
+		if (!isset($context['disabled_fields']['posts']))
+		{
+			echo '
+					<td class="windowbg2" style="white-space: nowrap" width="15">', $member['posts'], '</td>
+					<td class="windowbg statsbar hidden" width="120">';
+			]]></add>
+		</operation>
+	</file>
+
+	<file name="$themedir/Who.template.php">
+		<operation>
+			<search position="replace"><![CDATA[<td nowrap="nowrap">', $member['time'], '</td>]]></search> 
+			<add><![CDATA[<td nowrap="nowrap" class="hidden">', $member['time'], '</td>]]></add>
+		</operation>
+	</file>
+
+	<file name="$themedir/MessageIndex.template.php">
+		<operation>
+			<search position="replace"><![CDATA[<th scope="col" class="first_th" width="8%" colspan="2">&nbsp;</th>]]></search> 
+			<add><![CDATA[<th scope="col" class="first_th hidden" width="8%" colspan="2">&nbsp;</th>]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[<th scope="col" width="14%">]]></search> 
+			<add><![CDATA[<th scope="col" width="14%" class="hidden">]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+			else
+				echo '
+					<th scope="col" class="lefttext" width="22%"><a href="', $scripturl, '?board=', $context['current_board'], '.', $context['start'], ';sort=last_post', $context['sort_by'] == 'last_post' && $context['sort_direction'] == 'up' ? ';desc' : '', '">', $txt['last_post'], $context['sort_by'] == 'last_post' ? ' <img src="' . $settings['images_url'] . '/sort_' . $context['sort_direction'] . '.gif" alt="" />' : '', '</a></th>';
+]]></search> 
+			<add><![CDATA[
+			else
+				echo '
+					<th scope="col" class="lefttext hidden" width="22%"><a href="', $scripturl, '?board=', $context['current_board'], '.', $context['start'], ';sort=last_post', $context['sort_by'] == 'last_post' && $context['sort_direction'] == 'up' ? ';desc' : '', '">', $txt['last_post'], $context['sort_by'] == 'last_post' ? ' <img src="' . $settings['images_url'] . '/sort_' . $context['sort_direction'] . '.gif" alt="" />' : '', '</a></th>';
+]]></add>
+		</operation>
+	</file>
+
+</modification>

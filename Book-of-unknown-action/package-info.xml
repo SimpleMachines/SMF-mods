@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:Book_of_Unknown_Action</id>
+	<name>Book of Unknown Action</name>
+	<version>1.0</version>
+	<type>modification</type>
+	
+	<install>
+		<readme type="file" parsebbc="true">readme-english.txt</readme>
+		<modification type="file">install.xml</modification>
+	</install>
+	
+	<uninstall>
+		<modification type="file" reverse="true">install.xml</modification>
+	</uninstall>
+</package-info>

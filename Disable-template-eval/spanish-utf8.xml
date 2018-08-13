@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://dev.smfchat.com/xsl/modification.xsl"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:DisableEval</id>
+	<version>1.2</version>
+	
+	<file name="$languagedir/Help.spanish_es-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$helptxt['disableTemplateEval'] = 'Esta opción deshabilita la revisión que SMF realiza en los templates antes de mostrarlos al usuario. esto puede ser muy util para encontrar errores, y en algunos servidores, ayudará a incrementar el rendimiento de tu foro SMF.';
+]]></add>
+		</operation>
+	</file>	
+	
+	<file name="$languagedir/Modifications.spanish_es-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$txt['disableTemplateEval'] = '¿Deshabilitar el eval template?';
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Help.spanish_latin-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$helptxt['disableTemplateEval'] = 'Esta opción deshabilita la revisión que SMF realiza en los templates antes de mostrarlos al usuario. esto puede ser muy util para encontrar errores, y en algunos servidores, ayudará a incrementar el rendimiento de tu foro SMF.';
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Modifications.spanish_latin-utf8.php" error="skip">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$txt['disableTemplateEval'] = '¿Deshabilitar el eval template?';
+]]></add>
+		</operation>
+	</file>
+
+</modification>

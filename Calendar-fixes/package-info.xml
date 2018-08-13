@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>Arantor:Calendarholidaysfix</id>
+	<name>Calendar holidays fix</name>
+	<version>1.0</version>
+	<type>modification</type>
+
+	<install for="1.1-1.1.99, 2.0-2.0.99">
+		<code>fix_calendar.php</code>
+	</install>
+	
+	<uninstall for="1.1-1.1.99, 2.0-2.0.99">
+		<readme lang="english" parsebbc="true" type="inline">Just delete this package. There is nothing to uninstall.</readme>
+	</uninstall>
+</package-info>

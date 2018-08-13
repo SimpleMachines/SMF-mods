@@ -1,0 +1,278 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>dev:login_verification</id>
+	<version>1.1</version>
+
+	<file name="$sourcedir/LogInOut.php">
+		<operation>
+			<search position="replace"><![CDATA[
+	global $txt, $context, $scripturl;
+]]></search>
+			<add><![CDATA[
+	global $txt, $context, $scripturl, $modSettings, $sourcedir;
+
+	// Generate a visual verification code to make sure the user is no bot.
+	if (!empty($modSettings['reg_verification']))
+	{
+		require_once($sourcedir . '/Subs-Editor.php');
+		$verificationOptions = array(
+			'id' => 'register',
+		);
+		$context['visual_verification'] = create_control_verification($verificationOptions);
+		$context['visual_verification_id'] = $verificationOptions['id'];
+	}
+	// Otherwise we have nothing to show.
+	else
+		$context['visual_verification'] = false;
+]]></add>
+		</operation>
+	
+		<operation>
+			<search position="replace"><![CDATA[	// You forgot to type your username, dummy!
+]]></search>
+			<add><![CDATA[	// Check whether the visual verification code was entered correctly.
+	if (!empty($modSettings['reg_verification']))
+	{
+		require_once($sourcedir . '/Subs-Editor.php');
+		$verificationOptions = array(
+			'id' => 'register',
+		);
+
+		// Ugly... Sometimes we might not have it set.
+		if (empty($context['visual_verification_id']))
+			$context['visual_verification_id'] = $verificationOptions['id'];
+
+		$context['visual_verification'] = create_control_verification($verificationOptions, true);
+
+		if (is_array($context['visual_verification']))
+		{
+			loadLanguage('Errors');
+			foreach ($context['visual_verification'] as $error)
+			{
+				$context['login_errors'][] = $txt['error_' . $error];
+				log_error($txt['error_' . $error], 'user');
+			}
+			if (!empty($context['login_errors']))
+			{
+				$test = $context['login_errors'];
+
+				return;
+			}
+		}
+	}
+
+	// You forgot to type your username, dummy!
+]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[			$context['login_errors'] = array($txt['username_no_exist']);
+			return;
+]]></search>
+			<add><![CDATA[			$context['login_errors'] = array($txt['username_no_exist']);
+			log_error($txt['username_no_exist'], 'user');
+			return;
+]]></add>
+		</operation>
+		
+		<operation>
+		<search position="replace"><![CDATA[		$context['login_errors'] = array($txt['need_username']);
+		return;
+]]></search>
+			<add><![CDATA[		$context['login_errors'] = array($txt['need_username']);
+		log_error($txt['need_username'], 'user');
+		return;
+]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[		$context['login_errors'] = array($txt['no_password']);
+		return;
+]]></search>
+			<add><![CDATA[		$context['login_errors'] = array($txt['no_password']);
+		log_error($txt['no_password'], 'user');
+		return;
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$sourcedir/Subs-Editor.php">
+		<operation>
+			<search position="replace"><![CDATA[	// Start with any testing.
+	if ($do_test)
+	{
+		// This cannot happen!
+		if (!isset($_SESSION[$verificationOptions['id'] . '_vv']['count']))
+			fatal_lang_error('no_access', false);
+		// ... nor this!
+		if ($thisVerification['number_questions'] && (!isset($_SESSION[$verificationOptions['id'] . '_vv']['q']) || !isset($_REQUEST[$verificationOptions['id'] . '_vv']['q'])))
+			fatal_lang_error('no_access', false);
+
+]]></search>
+			<add><![CDATA[	// This cannot happen! ...ohyes it will.
+	if ($do_test && (!isset($_SESSION[$verificationOptions['id'] . '_vv']['count']) || ($thisVerification['number_questions'] && (!isset($_SESSION[$verificationOptions['id'] . '_vv']['q']) || !isset($_REQUEST[$verificationOptions['id'] . '_vv']['q'])))))
+		$verification_errors[] = 'verification_required';
+
+	if ($do_test && empty($verification_errors))
+	{
+		// Start with actual testing.
+]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[				if (empty($_REQUEST[$verificationOptions['id'] . '_vv']['q'][$row['id_comment']]) || trim($smcFunc['htmlspecialchars'](strtolower($_REQUEST[$verificationOptions['id'] . '_vv']['q'][$row['id_comment']]))) != strtolower($row['answer']))
+]]></search>
+			<add><![CDATA[				if (!isset($_REQUEST[$verificationOptions['id'] . '_vv']['q'][$row['id_comment']]) || trim($smcFunc['htmlspecialchars'](strtolower($_REQUEST[$verificationOptions['id'] . '_vv']['q'][$row['id_comment']]))) != strtolower($row['answer']))
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$sourcedir/Subs-Auth.php">
+		<operation>
+			<search position="replace"><![CDATA[function KickGuest()
+{
+	global $txt, $context;
+
+	loadLanguage('Login');
+]]></search>
+			<add><![CDATA[function KickGuest()
+{
+	global $txt, $context, $modSettings, $sourcedir;
+
+	// Generate a visual verification code to make sure the user is no bot.
+	if (!empty($modSettings['reg_verification']))
+	{
+		require_once($sourcedir . '/Subs-Editor.php');
+		$verificationOptions = array(
+			'id' => 'register',
+		);
+		$context['visual_verification'] = create_control_verification($verificationOptions);
+		$context['visual_verification_id'] = $verificationOptions['id'];
+	}
+	// Otherwise we have nothing to show.
+	else
+		$context['visual_verification'] = false;
+
+	loadLanguage('Login');
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$themedir/Login.template.php">
+		<operation>
+			<search position="replace"><![CDATA[					<dd><input type="text" name="openid_identifier" class="input_text openid_login" size="17" />&nbsp;<em><a href="', $scripturl, '?action=helpadmin;help=register_openid" onclick="return reqWin(this.href);" class="help">(?)</a></em></dd>
+				</dl><hr />';
+
+	echo '
+				<dl>
+					<dt>', $txt['mins_logged_in'], ':</dt>
+]]></search>
+			<add><![CDATA[					<dd><input type="text" name="openid_identifier" class="input_text openid_login" size="17" />&nbsp;<em><a href="', $scripturl, '?action=helpadmin;help=register_openid" onclick="return reqWin(this.href);" class="help">(?)</a></em></dd>
+				</dl><hr />';
+
+	if (!empty($context['visual_verification']))
+		echo '
+				</dl>
+				<span class="topslice"><span></span></span>
+				<fieldset class="content centertext">
+					', template_control_verification($context['visual_verification_id'], 'all'), '
+				</fieldset>
+				<span class="botslice"><span></span></span>
+				<dl>';
+
+	echo '
+				<dl>
+					<dt>', $txt['mins_logged_in'], ':</dt>
+]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[					<dd><input type="text" name="openid_identifier" class="input_text openid_login" size="17" /></dd>
+				</dl>
+				<hr />
+				<dl>';
+
+	echo '
+					<dt>', $txt['mins_logged_in'], ':</dt>
+]]></search>
+			<add><![CDATA[					<dd><input type="text" name="openid_identifier" class="input_text openid_login" size="17" /></dd>
+				</dl>
+				<hr />
+				<dl>';
+
+	if (!empty($context['visual_verification']))
+		echo '
+				</dl>
+				<span class="topslice"><span></span></span>
+				<fieldset class="content centertext">
+					', template_control_verification($context['visual_verification_id'], 'all'), '
+				</fieldset>
+				<span class="botslice"><span></span></span>
+				<dl>';
+
+	echo '
+					<dt>', $txt['mins_logged_in'], ':</dt>
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$themedir/Wireless.template.php">
+		<operation>
+			<search position="before"><![CDATA[		<input type="text" name="openid_identifier" class="input_text openid_login" size="17" /></p>';
+]]></search>
+			<add><![CDATA[
+	if ($context['visual_verification'])
+		echo '
+		<p><strong>', $txt['verification'], '</strong></p>
+		<p>
+			', template_control_verification($context['visual_verification_id'], 'all'), '
+		</p>';
+]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[				<tr><td><input type="text" name="openid_identifier" class="input_text openid_login" size="17" /></td></tr>';
+]]></search>
+			<add><![CDATA[
+	if ($context['visual_verification'])
+		echo '
+				<tr><td><strong>', $txt['verification'], '</strong></td></tr>
+				<tr><td>
+					', template_control_verification($context['visual_verification_id'], 'all'), '
+				</tr></td>';
+]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[
+			<p class="windowbg"><input type="text" name="openid_identifier" class="input_text openid_login" size="17" /></p>';
+]]></search>
+			<add><![CDATA[
+	if ($context['visual_verification'])
+		echo '
+			<p class="windowbg">' , $txt['verification'], '</p>
+			<p class="windowbg">
+					', template_control_verification($context['visual_verification_id'], 'all'), '
+			</p>';
+]]></add>
+		</operation>
+	</file>
+	
+	<file name="$languagedir/Errors.english.php" error="skip">
+		<operation>
+			<search position="replace"><![CDATA[$txt['error_need_verification_code'] = 'Please enter the verification code below to continue to the results.';
+$txt['error_bad_file'] = 'Sorry but the file specified could not be opened: %1$s';
+]]></search>
+			<add><![CDATA[$txt['error_need_verification_code'] = 'Please enter the verification code below to continue to the results.';
+$txt['error_verification_required'] = 'This forum requires verification.';
+$txt['error_bad_file'] = 'Sorry but the file specified could not be opened: %1$s';
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$languagedir/ManageSettings.english.php">
+		<operation error="ignore">
+			<search position="replace"><![CDATA[$txt['setting_reg_verification'] = 'Require verification on registration page';]]></search>
+			<add><![CDATA[$txt['setting_reg_verification'] = 'Require verification on registration and login pages';]]></add>
+		</operation>
+	</file>
+
+</modification>

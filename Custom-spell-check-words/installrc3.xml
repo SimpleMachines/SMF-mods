@@ -1,0 +1,42 @@
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>CustomizeTeam:SpellCheckCustomWords</id>
+	<version>1.3</version>
+
+	<file name="$sourcedir/Subs-Post.php">
+		<operation>
+			<search position="before"><![CDATA[
+	global $txt, $context, $smcFunc;]]></search>
+			<add><![CDATA[
+	global $modSettings;]]></add>
+		</operation>
+
+		<operation>
+			<search position="before"><![CDATA[	$known_words = array('smf', 'php', 'mysql', 'www', 'gif', 'jpeg', 'png', 'http', 'smfisawesome', 'grandia', 'terranigma', 'rpgs');]]></search>
+			<add><![CDATA[
+
+	// Get the user defined words
+	if (empty($modSettings['knownWordsExtras']))
+		$known_words_extras = array();
+	else
+		$known_words_extras = explode(',', $modSettings['knownWordsExtras']);
+
+	// Trim the spaces
+	$extras = array();
+	foreach ($known_words_extras as $word)
+		$extras[] = trim(strtolower($word));
+
+	// Now merge the user defined and the SMF defined ones.
+	$known_words = array_merge($known_words, $extras);]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/ManagePosts.php">
+		<operation>
+			<search position="before"><![CDATA[
+			array('check', 'enableSpellChecking', 'subtext' => (function_exists('pspell_new') ? $txt['enableSpellChecking_warning'] : ('<span class="alert">' . $txt['enableSpellChecking_warning'] . '</span>'))),]]></search>
+			<add><![CDATA[
+			array('text', 'knownWordsExtras', 'subtext' => $txt['known_words_extras_desc'], 'text_label' => $txt['known_words_extras'], 'size' => 60),]]></add>
+		</operation>
+	</file>
+
+</modification>
