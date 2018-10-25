@@ -29,3 +29,7 @@ The Package Manager should work in most cases, if you have problems installing p
 [b]Version 1.0 - October 30 2009[/b]
 - Initial release
 [/size]
+
+
+Copyright (c) 2018, Simple Machines, under BSD 3-Clause License.
+All rights reserved.

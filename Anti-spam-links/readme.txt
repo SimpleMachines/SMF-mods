@@ -43,3 +43,7 @@ Please use the modification thread for support with this modification.
 6/12/09 - v1.1
 o Initial Release
 [/tt]
+
+
+Copyright (c) 2018, Simple Machines, under BSD 3-Clause License.
+All rights reserved.

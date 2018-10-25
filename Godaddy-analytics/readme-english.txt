@@ -31,3 +31,7 @@ Updated language support
 [size=8pt][b]1.0 - December 7, 2009[/b]
 First release
 [/size]
+
+
+Copyright (c) 2015, Simple Machines, under BSD 3-Clause License.
+All rights reserved.
