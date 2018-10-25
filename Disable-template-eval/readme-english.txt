@@ -24,32 +24,6 @@ Compatible with SMF 1.1 & 2.0 upto RC1 (Standard Feature in 2.0 RC2 onward)
 [color=blue][b]Installation Information:[/b][/color]
 The Package Manager should work in most cases, if you have problems installing please use the discussion thread as well as [url=http://docs.simplemachines.org/index.php?topic=402]Manual Installation of Mods[/url]
 
-[color=blue][b]License:[/b][/color]
-[code]Copyright (c) 2015, Simple Machines
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
-      documentation and/or other materials provided with the distribution.
-    * Neither the name of the <organization> nor the
-      names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.[/code]
-
 [color=blue][b]Change Log:[/b][/color]
 [size=8pt][b]Version 1.2 - October 22, 2009[/b]
 Restructured mod slightly
@@ -58,3 +32,7 @@ Added English British and Spanish (both _es and _latin) translations. Thanks to 
 [b]Version 1.0 - August 9, 2009[/b]
 First release
 [/size]
+
+
+Copyright (c) 2015, Simple Machines, under BSD 3-Clause License.
+All rights reserved.
