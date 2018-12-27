@@ -3,7 +3,7 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 	<id>smf:responsive</id>
 	<name>Responsive Curve</name>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<file name="$themedir/index.template.php">
 		<operation>
@@ -24,7 +24,19 @@
 	<link rel="stylesheet" type="text/css" href="', $settings['theme_url'], '/css/responsive', $context['theme_variant'], '.css?fin20" />';
 ]]></add>
 		</operation>
-
+		<operation>
+			<search postion="after"><![CDATA[// Some browsers need an extra stylesheet due to bugs/compatibility issues.]]></search>
+			<add><![CDATA[	// Load the JS
+	echo '
+	<script type="text/javascript" src="', $settings['default_theme_url'], '/scripts/jquery.js?fin20"></script>
+	<script type="text/javascript" src="', $settings['default_theme_url'], '/scripts/superfish.js?fin20"></script>
+	<script>
+		jQuery(document).ready(function() {
+			jQuery("ul.dropmenu").superfish();
+		});
+	</script>';
+]]></add>
+		</operation>
 		<operation>
 			<search position="replace"><![CDATA[					<a class="', $button['active_button'] ? 'active ' : '', 'firstlevel" href="', $button['href'], '"', isset($button['target']) ? ' target="' . $button['target'] . '"' : '', '>]]></search> 
 			<add><![CDATA[					<a class="', $button['active_button'] ? 'active ' : '', 'firstlevel" href="', $button['href'], '"', isset($button['target']) ? ' target="' . $button['target'] . '"' : '', '>

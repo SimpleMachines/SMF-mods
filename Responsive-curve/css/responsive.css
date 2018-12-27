@@ -85,7 +85,8 @@
 	#menu_nav .dropmenu li a.firstlevel:hover, #menu_nav li:hover,
 	#menu_nav .dropmenu li:hover, #menu_nav .dropmenu li:hover a.firstlevel,
 	#main_menu .dropmenu li a.active, #main_menu .dropmenu li a:hover,
-	#main_menu .dropmenu li:hover ul, #main_menu .dropmenu li ul {
+	#main_menu .dropmenu li:hover ul, #main_menu .dropmenu li ul,
+	#main_menu .dropmenu li a.firstlevel:hover, #main_menu .dropmenu li:hover a.firstlevel {
 		background: none !important;
 	}
 	.keyinfo h5, .keyinfo .messageicon, #messageindex .last_th {
@@ -161,7 +162,7 @@
 	}
 	.dropmenu li
 	{
-		width: 51%;
+		width: 75%;
 	}
 	.dropmenu li li, .dropmenu li li li
 	{
@@ -261,10 +262,8 @@
 	.features p
 	{
 		margin: 0;
-		padding: 0;
+		padding: 1em 0 0.5em 0.5em !important;
 		min-height: 0;
-		max-height: 5.2em;
-		overflow: auto;
 	}
 	.mark_read .buttonlist
 	{
@@ -308,7 +307,11 @@
 	{
 		width: 100%;
 	}
-	#searchform .input_text, select
+	#guest_form input, #guest_form select,
+	#search_form input, #search_form select {
+		padding: 5px 2px;
+	}
+	#searchform .input_text, #searchform select
 	{
 		width: 95%;
 		padding: 5px 0;
@@ -415,16 +418,13 @@
 	{
 		overflow: hidden !important;
 	}
-/*	dd, dt
-	{
-		float: none !important;
-		width: 100% !important;
-		overflow: hidden;
-		text-align: left !important;
-	}*/
+	/* Structure changes means we don't have to show this also saves space for actual topic title */
+	#forumposts h3 span#author {
+		display: none;
+	}
 	.inner
 	{
-		padding: 1em .5em 2px .5em;
+		padding: 1em;
 		margin: 0;
 	}
 	.signature, .attachments
@@ -440,18 +440,20 @@
 		text-align: center;
 		width: 100% !important;
 	}
+	.buttonlist ul {
+		margin: 0;
+		padding: 0;
+	}
 	.buttonlist ul li
 	{
-		margin: 2px 0;
+		margin: 2px 5px;
+	}
+	.buttonlist ul li a {
+		margin: 0;
 	}
 	.buttonlist ul li a span
 	{
 		height: auto;
-	}
-	#quick_tasks li
-	{
-		height: 5em !important;
-		padding: 0;
 	}
 	#main_admsection #basicinfo h4
 	{
@@ -465,12 +467,46 @@
 		float: none;
 		width: 100%;
 	}
+	#adm_submenus {
+		padding: 0;
+	}
 
+	/* Try something here */
+	dl.settings dt, dl.settings dd,
+	#admin_content dt, #admin_content dd {
+		width: 100%;
+		float: none;
+	}
+	dl.settings dt {
+		margin: 0;
+	}
+	dl.settings dd {
+		margin: 0 0 10px 0;
+	}
+	dl.settings dd select {
+		max-width: 100%;
+	}
 	/* some dirty fix for SP :)*/
 	#sp_left, #sp_right, #sp_center
 	{
 		width: 100%;
 		display: block;
+	}
+	/* Play nice with Maps... Inputs... Select... be a nice lil'thing */
+	iframe, input, select {
+		max-width: 100%;
+	}
+	/* Well to avoid template edit we need some hackish method */
+	#search_term_input input {
+		display: block;
+	}
+	#mlist_search {
+		width: 100%;
+	}
+	#mlist_search span.floatleft {
+		display: block;
+		width: 100%;
+		float: none;
 	}
 }
 

@@ -3,13 +3,15 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>smf:responsive</id>
 	<name>Responsive Curve</name>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<type>modification</type>
 
 	<install for="2.0 - 2.0.99">
 		<readme type="file" parsebbc="true">readme-english.txt</readme>
 		<require-file name="css/responsive.css" destination="$boarddir/Themes/default/css" />
 		<require-file name="images/responsive_menu.png" destination="$boarddir/Themes/default/images" />
+		<require-file name="js/jquery.js" destination="$boarddir/Themes/default/js" />
+		<require-file name="js/superfish.js" destination="$boarddir/Themes/default/js" />
 		<modification type="file">install.xml</modification> 
 	</install>
 
@@ -17,6 +19,8 @@
 		<modification type="file" reverse="true">install.xml</modification> 
 		<remove-file name="$boarddir/Themes/default/css/responsive.css" />
 		<remove-file name="$boarddir/Themes/default/images/responsive_menu.png" />
+		<remove-file name="$boarddir/Themes/default/js/jquery.js" />
+		<remove-file name="$boarddir/Themes/default/js/superfish.js" />
 	</uninstall>
 
 </package-info>
