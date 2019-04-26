@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<name>Curve2 Color Changer</name>
+	<id>smf:curve2_color_changer</id>
+	<type>modification</type>
+	<version>1.0</version>
+
+	<install for="2.1 - 2.1.99, 2.1 RC1, 2.1 RC2, 2.1 RC3">
+		<readme type="file" parsebbc="true">README.txt</readme>
+		<redirect url="?action=admin;area=theme;sa=list;th=1" />
+		<!-- credits -->
+		<credits url="www.simplemachines.org" license="BSD 3-clause license" licenseurl="https://opensource.org/licenses/BSD-3-Clause" copyright="2019">Curve2 Color Changer</credits>
+		<!-- hooks -->
+		<hook hook="integrate_theme_settings" function="ColorChanger::themeSettings" file="$sourcedir/Class-ColorChanger.php" />
+		<hook hook="integrate_pre_css_output" function="ColorChanger::outputCss" file="$sourcedir/Class-ColorChanger.php" />
+		<!-- files -->
+		<require-file name="Class-ColorChanger.php" destination="$sourcedir" />
+		<require-file name="ColorChanger.js" destination="$themedir/scripts" />
+		<require-file name="ColorChanger.english.php" destination="$languagedir" />
+	</install>
+
+	<uninstall for="2.1 - 2.1.99, 2.1 RC1, 2.1 RC2, 2.1 RC3">
+		<!-- hooks -->
+		<hook hook="integrate_theme_settings" function="ColorChanger::themeSettings" file="$sourcedir/Class-ColorChanger.php" reverse="true"/>
+		<hook hook="integrate_pre_css_output" function="ColorChanger::outputCss" file="$sourcedir/Class-ColorChanger.php" reverse="true"/>
+		<!-- files -->
+		<remove-file name="$sourcedir/Class-ColorChanger.php" />
+		<remove-file name="$themedir/scripts/ColorChanger.js" />
+		<remove-file name="$languagedir/ColorChanger.english.php" />
+	</uninstall>
+
+</package-info>
