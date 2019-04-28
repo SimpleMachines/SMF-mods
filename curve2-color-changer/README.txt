@@ -1,18 +1,22 @@
-[size=4][b]Curve2 Color Changer[/b][/size]
-[url=http://custom.simplemachines.org/mods/index.php?mod=0][b]Link to Mod[/b][/url]
+[center][size=1.7em][color=purple][b]Curve2 Color Changer[/b][/color][/size][/center]
 
-[b][size=10pt]Compatibility[/size][/b]
+[hr]
+[b]Supported Languages:[/b] English
+[url=https://custom.simplemachines.org/mods/index.php?mod=4231][b]Link To Mod[/b][/url] | [url=https://www.simplemachines.org/community/index.php?topic=567270.0][b]Mod Discussion[/b][/url] | [url=https://custom.simplemachines.org/mods/index.php?action=profile;u=1][b]Other SMF Customization Team Mods[/b][/url]
+[hr]
+
+[color=purple][b]Compatibility[/b][/color]
 For SMF 2.1.x
 
-[b][size=10pt]Introduction[/size][/b]
-Adds color settings for the the SMF2.1 default theme
+[color=purple][b]Introduction[/b][/color]
+Adds color settings for the the SMF 2.1 default theme
 
-[b][size=10pt]Installation[/size][/b]
+[color=purple][b]Installation[/b][/color]
 Any previous versions of this mod MUST be uninstalled BEFORE installing this version.
 This mod is mainly for the default theme, custom themes might be compatible depending on the author of the custom theme.
 
-[b][size=10pt]Usage in custom themes (for theme authors)[/size][/b]
-If you wish to make use of the mod and allow users to change colors in your theme, add an array with the following format to [b]template_init()[/b]
+[color=purple][b]Usage in custom themes (for theme authors)[/b][/color]
+If you wish to make use of the mod and allow admins to change colors in your theme, add an array with the following format to [b]template_init()[/b]
 
 [code]<?php
 $settings['color_changes'] = array(
@@ -75,12 +79,13 @@ $settings['color_changes'] = array(
 );
 [/code]
 
-[b][size=10pt]Support[/size][/b]
+[color=purple][b]Support[/b][/color]
 Please use the modification thread for support with this modification.
 
-[b][size=10pt]Changelog[/size][/b]
-[font=monospace]• v1.0
-	o Initial Release[/font]
+[color=purple][b]Changelog[/b][/color]
+[tt][b]Version 1.0 - April 2019[/b]
+  Initial Release[/tt]
+
 
 Copyright (c) 2019, Simple Machines, under BSD 3-Clause License.
 All rights reserved.
