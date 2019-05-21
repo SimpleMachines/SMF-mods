@@ -11,7 +11,7 @@ Contributions to documentation are licensed under [CC-by-SA 3](https://creativec
 
 Feel free to fork this repository and make your desired changes.
 
-Please see the [Developer's Certificate of Origin](https://github.com/SimpleMachines/SMF-Customization-Team-mods/blob/master/DCO.txt) in the repository:
+Please see the [Developer's Certificate of Origin](https://github.com/SimpleMachines/SMF-mods/blob/master/DCO.txt) in the repository:
 	by signing off your contributions, you acknowledge that you can and do license your submissions under the license of the project.
 
 
@@ -24,7 +24,7 @@ Please see the [Developer's Certificate of Origin](https://github.com/SimpleMach
   * an easy way to do so is to define an alias for the git commit command, which includes -s switch (reference: [How to create Git aliases](https://git.wiki.kernel.org/index.php/Aliases))
 * send a pull request to us.
 
-In order to have your pull request merged faster, please also look at the [style guide](https://github.com/SimpleMachines/SMF-Customization-Team-mods/wiki) for this repository.
+In order to have your pull request merged faster, please also look at the [style guide](https://github.com/SimpleMachines/SMF-mods/wiki) for this repository.
 
 
 Please, feel free to play around. That's what we're doing ;)
