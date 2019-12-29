@@ -3,7 +3,7 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 	<id>smf:responsive</id>
 	<name>Responsive Curve</name>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<file name="$themedir/index.template.php">
 		<operation>
