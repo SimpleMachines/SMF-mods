@@ -4,7 +4,7 @@
 	<name>Anti-Spam Links</name>
 	<id>CustomizeTeam:AntiSpamLinks</id>
 	<type>modification</type>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 
 	<type>modification</type>
 
@@ -18,13 +18,13 @@
 		<modification type="file" reverse="true">modification.xml</modification>
 	</uninstall>
 	
-	<install for="2.0 - 2.99.99, 2.0 RC4, 2.0 RC5">
+	<install for="2.0 - 2.0.99, 2.0 RC4, 2.0 RC5">
 		<readme type="file" parsebbc="true">readme.txt</readme>
 		<modification type="file">modificationrc4.xml</modification>
 		<code>updateDatabase.php</code>
 	</install>
 
-	<uninstall for="2.0 - 2.99.99, 2.0 RC4, 2.0 RC5">
+	<uninstall for="2.0 - 2.0.99, 2.0 RC4, 2.0 RC5">
 		<modification type="file" reverse="true">modificationrc4.xml</modification>
 	</uninstall>
 </package-info>

@@ -346,7 +346,7 @@ $txt['anti_spam_links_guests_opt3'] = 'links are set [nofollow]';
 ]]></add>
 		</operation>
 	</file>
-	<file name="$languagedir/Modifications-utf8.english.php" error="skip">
+	<file name="$languagedir/Modifications.english-utf8.php" error="skip">
 		<operation>
 			<search position="end" />
 			<add><![CDATA[
