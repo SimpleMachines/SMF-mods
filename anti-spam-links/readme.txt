@@ -32,8 +32,8 @@ Manual edits will be required for ALL themes (other than SMF Default Core Theme)
 If your theme has its own versions of the language files Modifications.english.php and/or Modifications.english-utf8.php, OR if you're using a language other than those supported (listed above) by the mod then you will need to copy the language strings into each custom version of those files.
 
 [b]Useful Links[/b]
-[url=http://docs.simplemachines.org/index.php?topic=402]Manual Installation Of Mods[/url]
-[url=http://www.simplemachines.org/community/index.php?topic=24110.0]How Do I Modify Files?[/url]
+[url=https://docs.simplemachines.org/index.php?topic=402]Manual Installation Of Mods[/url]
+[url=https://www.simplemachines.org/community/index.php?topic=24110.0]How Do I Modify Files?[/url]
 
 [color=purple][b]Support[/b][/color]
 Please use the modification thread for support with this modification.
@@ -45,5 +45,5 @@ Please use the modification thread for support with this modification.
 [/tt]
 
 
-Copyright (c) 2018, Simple Machines, under BSD 3-Clause License.
+Copyright (c) 2020, Simple Machines, under BSD 3-Clause License.
 All rights reserved.
