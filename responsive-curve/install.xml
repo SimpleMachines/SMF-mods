@@ -3,7 +3,7 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 	<id>smf:responsive</id>
 	<name>Responsive Curve</name>
-	<version>1.0.1</version>
+	<version>1.1</version>
 
 	<file name="$themedir/index.template.php">
 		<operation>
@@ -120,8 +120,24 @@
 			<add><![CDATA[<th scope="col" class="first_th hidden" width="8%" colspan="2">&nbsp;</th>]]></add>
 		</operation>
 		<operation>
+			<search position="replace"><![CDATA[<th colspan="3"><strong>', $txt['msg_alert_none'], '</strong></th>]]></search> 
+			<add><![CDATA[<th colspan="3" class="no_topics"><strong>', $txt['msg_alert_none'], '</strong></th>]]></add>
+		</operation>
+		<operation>
 			<search position="replace"><![CDATA[<th scope="col" width="14%">]]></search> 
 			<add><![CDATA[<th scope="col" width="14%" class="hidden">]]></add>
+		</operation>
+		<operation>
+			<search position="replace"><![CDATA[
+			if (empty($context['can_quick_mod']))
+				echo '
+					<th scope="col" class="lefttext last_th" width="22%"><a href="', $scripturl, '?board=', $context['current_board'], '.', $context['start'], ';sort=last_post', $context['sort_by'] == 'last_post' && $context['sort_direction'] == 'up' ? ';desc' : '', '">', $txt['last_post'], $context['sort_by'] == 'last_post' ? ' <img src="' . $settings['images_url'] . '/sort_' . $context['sort_direction'] . '.gif" alt="" />' : '', '</a></th>';
+]]></search> 
+			<add><![CDATA[
+			if (empty($context['can_quick_mod']))
+				echo '
+					<th scope="col" class="lefttext hidden last_th" width="22%"><a href="', $scripturl, '?board=', $context['current_board'], '.', $context['start'], ';sort=last_post', $context['sort_by'] == 'last_post' && $context['sort_direction'] == 'up' ? ';desc' : '', '">', $txt['last_post'], $context['sort_by'] == 'last_post' ? ' <img src="' . $settings['images_url'] . '/sort_' . $context['sort_direction'] . '.gif" alt="" />' : '', '</a></th>';
+]]></add>
 		</operation>
 		<operation>
 			<search position="replace"><![CDATA[
