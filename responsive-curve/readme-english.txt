@@ -19,7 +19,7 @@ The Package Manager should work in most cases, if you have problems installing p
 
 [color=purple][b]Change Log[/b][/color]
 [tt][size=0.9em]
-[b]Version 1.1 - December 29 2019[/b]
+[b]Version 1.1 - August 20 2021[/b]
 ! Bug Fixes
 
 [b]Version 1.0.1 - December 29 2019[/b]
