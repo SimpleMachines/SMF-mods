@@ -4,9 +4,9 @@
 	<name>Curve2 Color Changer</name>
 	<id>smf:curve2_color_changer</id>
 	<type>modification</type>
-	<version>1.0</version>
+	<version>1.1</version>
 
-	<install for="2.1 - 2.1.99, 2.1 RC1, 2.1 RC2, 2.1 RC3">
+	<install for="2.1 - 2.1.99, 2.1 RC4">
 		<readme type="file" parsebbc="true">README.txt</readme>
 		<redirect url="?action=admin;area=theme;sa=list;th=1" />
 		<!-- credits -->
@@ -20,7 +20,7 @@
 		<require-file name="ColorChanger.english.php" destination="$languagedir" />
 	</install>
 
-	<uninstall for="2.1 - 2.1.99, 2.1 RC1, 2.1 RC2, 2.1 RC3">
+	<uninstall for="2.1 - 2.1.99, 2.1 RC4">
 		<!-- hooks -->
 		<hook hook="integrate_theme_settings" function="ColorChanger::themeSettings" file="$sourcedir/Class-ColorChanger.php" reverse="true"/>
 		<hook hook="integrate_pre_css_output" function="ColorChanger::outputCss" file="$sourcedir/Class-ColorChanger.php" reverse="true"/>
