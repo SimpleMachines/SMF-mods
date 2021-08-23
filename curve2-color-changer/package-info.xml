@@ -18,6 +18,7 @@
 		<require-file name="Class-ColorChanger.php" destination="$sourcedir" />
 		<require-file name="ColorChanger.js" destination="$themedir/scripts" />
 		<require-file name="ColorChanger.english.php" destination="$languagedir" />
+		<require-file name="ColorChanger.russian.php" destination="$languagedir" />
 	</install>
 
 	<uninstall for="2.1 - 2.1.99, 2.1 RC1, 2.1 RC2, 2.1 RC3">
@@ -28,6 +29,7 @@
 		<remove-file name="$sourcedir/Class-ColorChanger.php" />
 		<remove-file name="$themedir/scripts/ColorChanger.js" />
 		<remove-file name="$languagedir/ColorChanger.english.php" />
+		<remove-file name="$languagedir/ColorChanger.russian.php" />
 	</uninstall>
 
 </package-info>
