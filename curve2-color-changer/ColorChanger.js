@@ -4,8 +4,8 @@
  * @license BSD 3-clause
  * @version 1.0
  */
- window.addEventListener("DOMContentLoaded", function()
- {
+window.addEventListener("DOMContentLoaded", function()
+{
 	// Do we have any palettes to output ?
 	if(txt_cc_palettes)
 	{
@@ -15,7 +15,7 @@
 
 		for(var palette in color_palettes)
 		{
-			cpContent += '<div class="cc_palette windowbg" onclick="return applyColorPalette(\''+palette+'\')">';
+			cpContent += '<fieldset class="cc_palette windowbg" onclick="return applyColorPalette(\''+palette+'\')"><legend>&nbsp;' + palette + '&nbsp;</legend>';
 			for(color in color_palettes[palette])
 			{
 				if(typeof color_palettes[palette][color] === "boolean")
@@ -23,28 +23,12 @@
 
 				cpContent += '<span class="cc_p_color' + (!color_palettes[palette][color] ? ' cc_empty_color' : '') + '" style="background: ' + (!color_palettes[palette][color] ? 'transparent' : color_palettes[palette][color]) + ';"></span>'
 			}
-			cpContent += '</div>';
+			cpContent += '</fieldset>';
 		}
 
 		oColorPalettes.innerHTML = cpContent;
 	}
 });
-
-function cc_reset_all()
-{
-	var oCcInputs = document.querySelectorAll('input[name^="options[cc_"]');
-	
-	for(var input in oCcInputs)
-	{
-		if(oCcInputs[input].type == "checkbox")
-			oCcInputs[input].checked = '';
-		else if(oCcInputs[input].type == "text" || oCcInputs[input].type == "color")
-		{
-			oCcInputs[input].type = 'text';
-			oCcInputs[input].value = '';
-		}
-	}
-}
 
 function applyColorPalette(oPalette)
 {
@@ -78,6 +62,7 @@ function applyColorPalette(oPalette)
 	}
 }
 
+// TODO?
 function copyPalette()
 {
 	var oCcInputs = document.querySelectorAll('input[id^="options_cc_"][type="text"], input[id^="options_cc_"][type="color"]');

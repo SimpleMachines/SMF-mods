@@ -11,7 +11,7 @@ class ColorChanger
 	/**
 	 * Editing the theme's colors
 	 *
-	 * Called by 
+	 * Called by
 	 *		integrate_theme_settings
 	 */
 	public static function themeSettings()
@@ -20,7 +20,7 @@ class ColorChanger
 
 		// This only applies to the default theme
 		if ($settings['theme_id'] != 1 && empty($settings['color_changes']))
-			return;		
+			return;
 
 		// Load the language strings
 		loadLanguage('ColorChanger');
@@ -37,14 +37,14 @@ class ColorChanger
 
 		// The problem with color inputs is that they don't take an empty value >:(
 		// So if the user wants to revert to the default colors, we have to change it to a text input using Js
-		$controls = function ($input_id) use ($txt)
+		$controls = function ($input_id) use ($color_palettes, $txt)
 		{
-			return '<a onclick="$(\'#options_' . $input_id . '\').attr(\'type\', \'text\').val(\'\')">' . $txt['cc_default_color'] . '</a> &bullet; <a onclick="$(\'#options_' . $input_id . '\').attr(\'type\', \'color\').click();">' . $txt['cc_color_picker'] . '</a>';
+			return '<a onclick="$(\'#' . $input_id . '\').attr(\'type\', \'color\').val(\'' . $color_palettes['default'][str_replace('cc_', '', $input_id)] . '\')">' . $txt['cc_default_color'] . '</a>';
 		};
 
 		// Add the settings to the default theme's settings page (Curve2)
 		$cc_settings = array(
-			$txt['cc_color_changer'] . ' <a onclick="return cc_reset_all()" id="cc_reset_all">[' . $txt['cc_reset_all'] . ']</a>',
+			$txt['cc_color_changer'] . ' <a onclick="return applyColorPalette(\'default\')" id="cc_reset_all">[' . $txt['cc_reset_all'] . ']</a>',
 			array(
 				'id' => 'cc_primary_color',
 				'label' => $txt['cc_primary_color'],
@@ -208,25 +208,13 @@ class ColorChanger
 		// Merge our new settings
 		$context['theme_settings'] = array_merge($context['theme_settings'], $cc_settings);
 
-		// Since there are currently no color inputs in SMF2.1's theme settings, we have to use Js
-		$javascript = '';
-		foreach ($cc_settings as $setting)
-		{
-			if(isset($setting['id']) && isset($setting['type']) && $setting['type'] == 'color')
-			{
-				$javascript .= '$("#options_' . $setting['id'] . '").attr("type", "'.(!empty($settings[$setting['id']]) && strlen($settings[$setting['id']])<=7 ? 'color' : 'text').'");';
-			}
-		}
-
-		addInlineJavaScript($javascript, true);
-
 		addInlineCss('#color_palettes{display: flex;flex-wrap: wrap;clear: both;}.cc_p_color{width: 10px;height: 36px;display: inline-block;}#color_palettes .cc_palette{cursor: pointer;display: flex;flex-wrap: wrap;padding: 4px;border-radius: 0;margin: 0 3px;background: transparent;}');
 	}
 
 	/**
 	 * Outputs the css which overrides the default css
 	 *
-	 * Called by 
+	 * Called by
 	 *		integrate_pre_css_output
 	 */
 	public static function outputCss()
@@ -403,11 +391,13 @@ class ColorChanger
 		if (!empty($settings['color_changes']))
 			$color_changes = $settings['color_changes'];
 
+		$defaultPalette = self::getColorPalette()['default'] ?: [];
+
 		// This creates the CSS code string
 		$css = '';
 		foreach ($color_changes as $color_key => $color)
 		{
-			if (empty($settings['cc_' . $color_key]))
+			if (empty($settings['cc_' . $color_key]) || $defaultPalette[$color_key] == $settings['cc_' . $color_key])
 				continue;
 
 			foreach ($color as $key => $code_block)
@@ -452,81 +442,100 @@ class ColorChanger
 			'blocks_alternate_color','borders_color','buttons_text_color','buttons_bg','buttons_border','special_titles_color', 'remove_shadows'
 		);
 		$color_palettes = array(
+			'default' => array(
+				'background'             => '#e9eef2',
+				'foreground'             => '#4d4d4d',
+				'primary_color'          => '#557ea0',
+				'secondary_color'        => '#f49a3a',
+				'top_section'            => '#ffffff',
+				'footer'                 => '#3e5a78',
+				'links'                  => '#334466',
+				'gradient_end'           => '#ffffff',
+				'gradient_start'         => '#e2e9f3',
+				'blocks_color'           => '#f0f4f7',
+				'blocks_alternate_color' => '#fdfdfd',
+				'borders_color'          => '#b8b8b8',
+				'buttons_text_color'     => '#444444',
+				'buttons_bg'             => '#ffffff',
+				'buttons_border'         => '#dddddd',
+				'special_titles_color'   => '#a85400',
+				'remove_shadows'         => true,
+			),
 			'brownish' => array(
-				'background'				=>	'#fcf1ef',
-				'foreground'				=>	'',
-				'primary_color'				=>	'#b16a52',
-				'secondary_color'			=>	'#dd8b42',
-				'top_section'				=>	'',
-				'footer'					=>	'',
-				'links'						=>	'#681e11',
-				'gradient_end'				=>	'',
-				'gradient_start'			=>	'#f0e7e1',
-				'blocks_color'				=>	'#f5eeeb',
-				'blocks_alternate_color'	=>	'#f3ded6',
-				'borders_color'				=>	'',
-				'buttons_text_color'		=>	'',
-				'buttons_bg'				=>	'',
-				'buttons_border'			=>	'',
-				'special_titles_color'		=>	'#c6574a',
-				'remove_shadows'			=> 	false,
+				'background'             => '#fcf1ef',
+				'foreground'             => '',
+				'primary_color'          => '#b16a52',
+				'secondary_color'        => '#dd8b42',
+				'top_section'            => '',
+				'footer'                 => '',
+				'links'	                 => '#681e11',
+				'gradient_end'           => '',
+				'gradient_start'         => '#f0e7e1',
+				'blocks_color'           => '#f5eeeb',
+				'blocks_alternate_color' => '#f3ded6',
+				'borders_color'          => '',
+				'buttons_text_color'     => '',
+				'buttons_bg'             => '',
+				'buttons_border'         => '',
+				'special_titles_color'   => '#c6574a',
+				'remove_shadows'         => false,
 			),
 			'redish' => array(
-				'background'				=>	'#fceff0',
-				'foreground'				=>	'',
-				'primary_color'				=>	'#cb383c',
-				'secondary_color'			=>	'#e87020',
-				'top_section'				=>	'',
-				'footer'					=>	'',
-				'links'						=>	'#842b2d',
-				'gradient_end'				=>	'',
-				'gradient_start'			=>	'#fef5f7',
-				'blocks_color'				=>	'#fcf3f3',
-				'blocks_alternate_color'	=>	'#f8dadb',
-				'borders_color'				=>	'',
-				'buttons_text_color'		=>	'',
-				'buttons_bg'				=>	'',
-				'buttons_border'			=>	'',
-				'special_titles_color'		=>	'#c22529',
-				'remove_shadows'			=> 	true,
+				'background'             => '#fceff0',
+				'foreground'             => '',
+				'primary_color'          => '#cb383c',
+				'secondary_color'        => '#e87020',
+				'top_section'            => '',
+				'footer'                 => '',
+				'links'                  => '#842b2d',
+				'gradient_end'           => '',
+				'gradient_start'         => '#fef5f7',
+				'blocks_color'           => '#fcf3f3',
+				'blocks_alternate_color' => '#f8dadb',
+				'borders_color'          => '',
+				'buttons_text_color'     => '',
+				'buttons_bg'             => '',
+				'buttons_border'         => '',
+				'special_titles_color'   => '#c22529',
+				'remove_shadows'         => true,
 			),
 			'dark_blue' => array(
-				'background'				=>	'#152348',
-				'blocks_alternate_color'	=>	'#0f142d',
-				'blocks_color'				=>	'#121831',
-				'borders_color'				=>	'#1d2e5a',
-				'top_section'				=>	'',
-				'footer'					=>	'#0e1425',
-				'buttons_bg'				=>	'#2573c0',
-				'buttons_border'			=>	'#2b68db',
-				'buttons_text_color'		=>	'#ffffff',
-				'foreground'				=>	'#cdcdcd',
-				'gradient_end'				=>	'#0e1425',
-				'gradient_start'			=>	'#161f3a',
-				'links'						=>	'#2e6ccb',
-				'primary_color'				=>	'#188dd3',
-				'secondary_color'			=>	'#4e6adc',
-				'special_titles_color'		=>	'#4a8ad0',
-				'remove_shadows'			=> 	true,
+				'background'             => '#152348',
+				'blocks_alternate_color' => '#0f142d',
+				'blocks_color'           => '#121831',
+				'borders_color'          => '#1d2e5a',
+				'top_section'            => '',
+				'footer'                 => '#0e1425',
+				'buttons_bg'             => '#2573c0',
+				'buttons_border'         => '#2b68db',
+				'buttons_text_color'     => '#ffffff',
+				'foreground'             => '#cdcdcd',
+				'gradient_end'           => '#0e1425',
+				'gradient_start'         => '#161f3a',
+				'links'                  => '#2e6ccb',
+				'primary_color'          => '#188dd3',
+				'secondary_color'        => '#4e6adc',
+				'special_titles_color'   => '#4a8ad0',
+				'remove_shadows'         => true,
 			),
 			'flat' => array(
-				'primary_color' 			=> '#24292e',
-				'secondary_color' 			=> '#0366d6',
-				'background' 				=> '#f6f8fa',
-				'foreground' 				=> '#000000',
-				'top_section'				=>	'',
-				'footer'					=>	'',
-				'links' 					=> '',
-				'gradient_start' 			=> 'transparent',
-				'gradient_end' 				=> '',
-				'blocks_color' 				=> '#f6f8fa',
-				'blocks_alternate_color' 	=> '#f6f8fa',
-				'special_titles_color' 		=> '#24292e',
-				'borders_color' 			=> '#d1d6dc',
-				'buttons_text_color' 		=> '#24292e',
-				'buttons_bg' 				=> '#ffffff',
-				'buttons_border' 			=> '#24292e',
-				'remove_shadows'			=> true,
+				'primary_color'          => '#24292e',
+				'secondary_color'        => '#0366d6',
+				'background'             => '#f6f8fa',
+				'foreground'             => '#000000',
+				'top_section'            => '',
+				'footer'                 => '',
+				'links'                  => '',
+				'gradient_start'         => 'transparent',
+				'gradient_end'           => '',
+				'blocks_color'           => '#f6f8fa',
+				'blocks_alternate_color' => '#f6f8fa',
+				'special_titles_color'   => '#24292e',
+				'borders_color'	         => '#d1d6dc',
+				'buttons_text_color'     => '#24292e',
+				'buttons_bg'             => '#ffffff',
+				'buttons_border'         => '#24292e',
+				'remove_shadows'         => true,
 			)
 		);
 
