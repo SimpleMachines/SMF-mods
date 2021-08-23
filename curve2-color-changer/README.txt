@@ -83,9 +83,15 @@ $settings['color_changes'] = array(
 Please use the modification thread for support with this modification.
 
 [color=purple][b]Changelog[/b][/color]
-[tt][b]Version 1.0 - April 2019[/b]
-  Initial Release[/tt]
+[b]Version 1.1 - August 2021[/b]
+- Fixed default palette
+- Adds labels for palettes
+- Added default curve palette
+- Added Russian translation
+
+[b]Version 1.0 - April 2019[/b]
+- Initial Release
 
 
-Copyright (c) 2019, Simple Machines, under BSD 3-Clause License.
+Copyright (c) 2021, Simple Machines, under BSD 3-Clause License.
 All rights reserved.
