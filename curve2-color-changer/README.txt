@@ -86,6 +86,7 @@ Please use the modification thread for support with this modification.
 [b]Version 1.2 - 24 August 2021[/b]
 - Fixed 'Remove shadows' option
 - Set a default color on all of the palettes
+- Fixed button color on "focus" state
 
 [b]Version 1.1 - 23 August 2021[/b]
 - Fixed default palette
