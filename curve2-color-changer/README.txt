@@ -83,7 +83,11 @@ $settings['color_changes'] = array(
 Please use the modification thread for support with this modification.
 
 [color=purple][b]Changelog[/b][/color]
-[b]Version 1.1 - August 2021[/b]
+[b]Version 1.2 - 24 August 2021[/b]
+- Fixed 'Remove shadows' option
+- Set a default color on all of the palettes
+
+[b]Version 1.1 - 23 August 2021[/b]
 - Fixed default palette
 - Adds labels for palettes
 - Added default curve palette

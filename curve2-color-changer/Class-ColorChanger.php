@@ -287,7 +287,7 @@ class ColorChanger
 					'elements' => '#wrapper, .dropmenu li ul, .top_menu, .dropmenu li li:hover, .button, .dropmenu li li:hover > a, .dropmenu li li a:focus,
 					.dropmenu li li a:hover, #top_section, #search_form .button, .quickbuttons li, .quickbuttons li ul, .quickbuttons li ul li:hover,
 					.quickbuttons ul li a:focus, .popup_window, #inner_section, .button:hover, .quickbuttons li:hover, .navigate_section ul, .popup_content, .up_contain,
-					.button:hover, #search_form .button:hover, .quickbuttons li:hover',
+					.button:focus, #search_form .button:hover, .quickbuttons li:hover',
 					'properties' => array('background')
 				)
 			),
@@ -299,8 +299,8 @@ class ColorChanger
 					'properties' => array('background-image' => 'linear-gradient(to bottom, {color} 0%, transparent 70%)')
 				),
 				array(
-					'elements' => '.button:hover, .quickbuttons li:hover, .navigate_section ul, .popup_content, .up_contain,
-					.button:hover, #search_form .button:hover, .quickbuttons li:hover',
+					'elements' => '.button:hover, .button:focus, .quickbuttons li:hover, .navigate_section ul, .popup_content, .up_contain,
+					#search_form .button:hover, .quickbuttons li:hover',
 					'properties' => array('background-image' => 'linear-gradient(to bottom, transparent 0%, {color} 70%)')
 				)
 			),
@@ -320,7 +320,7 @@ class ColorChanger
 			),
 			'borders_color' => array(
 				array(
-					'elements' => '#wrapper, .button, .button:hover, .windowbg, .roundframe, .information, #top_section, .navigate_section ul, .dropmenu li ul, .top_menu,
+					'elements' => '#wrapper, .button, .button:hover, .button:focus, .windowbg, .roundframe, .information, #top_section, .navigate_section ul, .dropmenu li ul, .top_menu,
 					.unread_notify, .pm_unread, .alerts_unread, .dropmenu li li:hover > a, .dropmenu li li a:focus, .dropmenu li li a:hover, .up_contain,
 					.boardindex_table .board_stats p, .children, #ic_recentposts td, .sub_bar, #info_center .sub_bar, .generic_bar, .progress_bar,
 					#detailedinfo dl, #tracking dl, .inner, .signature, .attachments, .under_message, .custom_fields_above_signature, .custom_fields_below_signature,
@@ -352,19 +352,19 @@ class ColorChanger
 			),
 			'buttons_text_color' => array(
 				array(
-					'elements' => '.button, .quickbuttons li a, .button:hover, .quickbuttons li:hover>a',
+					'elements' => 'a.button, .button, .quickbuttons li a, .button:hover, .button:focus, .quickbuttons li:hover>a',
 					'properties' => array('color')
 				),
 			),
 			'buttons_bg' => array(
 				array(
-					'elements' => '.button, .quickbuttons li, .button:hover, .quickbuttons li:hover, #search_form .button, #search_form .button:hover',
+					'elements' => '.button, .quickbuttons li, .button:hover, .button:focus, .quickbuttons li:hover, #search_form .button, #search_form .button:hover',
 					'properties' => array('background')
 				)
 			),
 			'buttons_border' => array(
 				array(
-					'elements' => '.button, .quickbuttons li, .button:hover, .quickbuttons li:hover, #search_form .button, #search_form .button:hover',
+					'elements' => '.button, .quickbuttons li, .button:hover, .button:focus, .quickbuttons li:hover, #search_form .button, #search_form .button:hover',
 					'properties' => array('border-color')
 				)
 			),
@@ -393,11 +393,15 @@ class ColorChanger
 
 		$defaultPalette = self::getColorPalette()['default'] ?: [];
 
+		// Ignore for some color changes
+		$ignoreColorChange = array('remove_shadows');
+
 		// This creates the CSS code string
 		$css = '';
 		foreach ($color_changes as $color_key => $color)
 		{
-			if (empty($settings['cc_' . $color_key]) || $defaultPalette[$color_key] == $settings['cc_' . $color_key])
+			// Skip if it's same as default or we ignore if it's empty
+			if (($defaultPalette[$color_key] == $settings['cc_' . $color_key] && !in_array($color_key, $ignoreColorChange)) || (in_array($color_key, $ignoreColorChange) && empty($settings['cc_' . $color_key])))
 				continue;
 
 			foreach ($color as $key => $code_block)
@@ -454,48 +458,48 @@ class ColorChanger
 				'gradient_start'         => '#e2e9f3',
 				'blocks_color'           => '#f0f4f7',
 				'blocks_alternate_color' => '#fdfdfd',
-				'borders_color'          => '#b8b8b8',
+				'borders_color'          => '#dddddd',
 				'buttons_text_color'     => '#444444',
 				'buttons_bg'             => '#ffffff',
 				'buttons_border'         => '#dddddd',
 				'special_titles_color'   => '#a85400',
-				'remove_shadows'         => true,
+				'remove_shadows'         => false,
 			),
 			'brownish' => array(
 				'background'             => '#fcf1ef',
-				'foreground'             => '',
+				'foreground'             => '#4d4d4d',
 				'primary_color'          => '#b16a52',
 				'secondary_color'        => '#dd8b42',
-				'top_section'            => '',
-				'footer'                 => '',
+				'top_section'            => '#ffffff',
+				'footer'                 => '#b16a52',
 				'links'	                 => '#681e11',
-				'gradient_end'           => '',
+				'gradient_end'           => '#ffffff',
 				'gradient_start'         => '#f0e7e1',
 				'blocks_color'           => '#f5eeeb',
 				'blocks_alternate_color' => '#f3ded6',
-				'borders_color'          => '',
-				'buttons_text_color'     => '',
-				'buttons_bg'             => '',
-				'buttons_border'         => '',
+				'borders_color'          => '#dddddd',
+				'buttons_text_color'     => '#681e11',
+				'buttons_bg'             => '#ffffff',
+				'buttons_border'         => '#dddddd',
 				'special_titles_color'   => '#c6574a',
 				'remove_shadows'         => false,
 			),
 			'redish' => array(
 				'background'             => '#fceff0',
-				'foreground'             => '',
+				'foreground'             => '#4d4d4d',
 				'primary_color'          => '#cb383c',
 				'secondary_color'        => '#e87020',
-				'top_section'            => '',
-				'footer'                 => '',
+				'top_section'            => '#ffffff',
+				'footer'                 => '#cb383c',
 				'links'                  => '#842b2d',
-				'gradient_end'           => '',
+				'gradient_end'           => '#ffffff',
 				'gradient_start'         => '#fef5f7',
 				'blocks_color'           => '#fcf3f3',
 				'blocks_alternate_color' => '#f8dadb',
-				'borders_color'          => '',
-				'buttons_text_color'     => '',
-				'buttons_bg'             => '',
-				'buttons_border'         => '',
+				'borders_color'          => '#dddddd',
+				'buttons_text_color'     => '#842b2d',
+				'buttons_bg'             => '#ffffff',
+				'buttons_border'         => '#dddddd',
 				'special_titles_color'   => '#c22529',
 				'remove_shadows'         => true,
 			),
@@ -504,7 +508,7 @@ class ColorChanger
 				'blocks_alternate_color' => '#0f142d',
 				'blocks_color'           => '#121831',
 				'borders_color'          => '#1d2e5a',
-				'top_section'            => '',
+				'top_section'            => '#ffffff',
 				'footer'                 => '#0e1425',
 				'buttons_bg'             => '#2573c0',
 				'buttons_border'         => '#2b68db',
@@ -523,11 +527,11 @@ class ColorChanger
 				'secondary_color'        => '#0366d6',
 				'background'             => '#f6f8fa',
 				'foreground'             => '#000000',
-				'top_section'            => '',
-				'footer'                 => '',
-				'links'                  => '',
-				'gradient_start'         => 'transparent',
-				'gradient_end'           => '',
+				'top_section'            => '#ffffff',
+				'footer'                 => '#24292e',
+				'links'                  => '#334466',
+				'gradient_start'         => '#ffffff',
+				'gradient_end'           => '#ffffff',
 				'blocks_color'           => '#f6f8fa',
 				'blocks_alternate_color' => '#f6f8fa',
 				'special_titles_color'   => '#24292e',
