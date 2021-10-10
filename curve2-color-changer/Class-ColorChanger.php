@@ -3,7 +3,7 @@
  * @package Curve2 Color Changer
  * @author SMF Customization Team (www.simplemachines.org)
  * @license BSD 3-clause
- * @version 1.0
+ * @version 1.2.1
  */
 
 class ColorChanger
@@ -550,5 +550,29 @@ class ColorChanger
 			return;
 
 		return $color_palettes;
+	}
+
+	/**
+	 * Insert some default settings
+	 *
+	 * @return void
+	 */
+	public static function defaults()
+	{
+		global $settings;
+
+		// Defaults
+		$palettes = self::getColorPalette();
+		$default_settings = [];
+
+		// Initialize settings
+		foreach ($palettes['default'] as $color_setting => $color)
+		{
+			if (!isset($settings['cc_' . $color_setting]))
+				$default_settings['cc_' . $color_setting] = $color;
+		}
+
+		// Add settings
+		$settings = array_merge($default_settings, $settings);
 	}
 }
