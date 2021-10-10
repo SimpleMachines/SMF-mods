@@ -4,7 +4,7 @@
 	<name>Curve2 Color Changer</name>
 	<id>smf:curve2_color_changer</id>
 	<type>modification</type>
-	<version>1.2</version>
+	<version>1.2.1</version>
 
 	<install for="2.1 - 2.1.99, 2.1 RC4">
 		<readme type="file" parsebbc="true">README.txt</readme>
@@ -12,6 +12,7 @@
 		<!-- credits -->
 		<credits url="www.simplemachines.org" license="BSD 3-clause license" licenseurl="https://opensource.org/licenses/BSD-3-Clause" copyright="2019">Curve2 Color Changer</credits>
 		<!-- hooks -->
+		<hook hook="integrate_load_theme" function="ColorChanger::defaults" file="$sourcedir/Class-ColorChanger.php" />
 		<hook hook="integrate_theme_settings" function="ColorChanger::themeSettings" file="$sourcedir/Class-ColorChanger.php" />
 		<hook hook="integrate_pre_css_output" function="ColorChanger::outputCss" file="$sourcedir/Class-ColorChanger.php" />
 		<!-- files -->
@@ -23,8 +24,9 @@
 
 	<uninstall for="2.1 - 2.1.99, 2.1 RC4">
 		<!-- hooks -->
-		<hook hook="integrate_theme_settings" function="ColorChanger::themeSettings" file="$sourcedir/Class-ColorChanger.php" reverse="true"/>
-		<hook hook="integrate_pre_css_output" function="ColorChanger::outputCss" file="$sourcedir/Class-ColorChanger.php" reverse="true"/>
+		<hook hook="integrate_load_theme" function="ColorChanger::defaults" file="$sourcedir/Class-ColorChanger.php" reverse="true" />
+		<hook hook="integrate_theme_settings" function="ColorChanger::themeSettings" file="$sourcedir/Class-ColorChanger.php" reverse="true" />
+		<hook hook="integrate_pre_css_output" function="ColorChanger::outputCss" file="$sourcedir/Class-ColorChanger.php" reverse="true" />
 		<!-- files -->
 		<remove-file name="$sourcedir/Class-ColorChanger.php" />
 		<remove-file name="$themedir/scripts/ColorChanger.js" />
