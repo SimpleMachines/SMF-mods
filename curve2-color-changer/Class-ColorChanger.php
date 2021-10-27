@@ -566,13 +566,14 @@ class ColorChanger
 		$default_settings = [];
 
 		// Initialize settings
-		foreach ($palettes['default'] as $color_setting => $color)
+		if (!empty($palettes['default']))
 		{
-			if (!isset($settings['cc_' . $color_setting]))
-				$default_settings['cc_' . $color_setting] = $color;
-		}
+			foreach ($palettes['default'] as $color_setting => $color)
+				if (!isset($settings['cc_' . $color_setting]))
+					$default_settings['cc_' . $color_setting] = $color;
 
-		// Add settings
-		$settings = array_merge($default_settings, $settings);
+			// Add settings
+			$settings = array_merge($default_settings, $settings);
+		}
 	}
 }
