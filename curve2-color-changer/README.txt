@@ -83,6 +83,10 @@ $settings['color_changes'] = array(
 Please use the modification thread for support with this modification.
 
 [color=purple][b]Changelog[/b][/color]
+[b]Version 1.3 - 27 October 2021[/b]
+- Check against theme authors having defined color palette/s for their theme
+- Fixed problems with default colors
+
 [b]Version 1.2.2 - 27 October 2021[/b]
 - Check if there are any default settings first
 
