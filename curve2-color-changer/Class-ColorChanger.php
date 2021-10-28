@@ -3,7 +3,7 @@
  * @package Curve2 Color Changer
  * @author SMF Customization Team (www.simplemachines.org)
  * @license BSD 3-clause
- * @version 1.2.1
+ * @version 1.3
  */
 
 class ColorChanger
@@ -18,7 +18,7 @@ class ColorChanger
 	{
 		global $context, $settings, $txt;
 
-		// This only applies to the default theme
+		// This only applies to themes that have color changes
 		if ($settings['theme_id'] != 1 && empty($settings['color_changes']))
 			return;
 
@@ -39,12 +39,16 @@ class ColorChanger
 		// So if the user wants to revert to the default colors, we have to change it to a text input using Js
 		$controls = function ($input_id) use ($color_palettes, $txt)
 		{
+			// Only set colors if the palette exists for them
+			if (!isset($color_palettes[str_replace('cc_', '', $input_id)]))
+				return;
+
 			return '<a onclick="$(\'#' . $input_id . '\').attr(\'type\', \'color\').val(\'' . $color_palettes['default'][str_replace('cc_', '', $input_id)] . '\')">' . $txt['cc_default_color'] . '</a>';
 		};
 
 		// Add the settings to the default theme's settings page (Curve2)
 		$cc_settings = array(
-			$txt['cc_color_changer'] . ' <a onclick="return applyColorPalette(\'default\')" id="cc_reset_all">[' . $txt['cc_reset_all'] . ']</a>',
+			$txt['cc_color_changer'] . (!empty($color_palettes) ? ' <a onclick="return applyColorPalette(\'default\')" id="cc_reset_all">[' . $txt['cc_reset_all'] . ']</a>' : ''),
 			array(
 				'id' => 'cc_primary_color',
 				'label' => $txt['cc_primary_color'],
@@ -391,7 +395,7 @@ class ColorChanger
 		if (!empty($settings['color_changes']))
 			$color_changes = $settings['color_changes'];
 
-		$defaultPalette = self::getColorPalette()['default'] ?: [];
+		$defaultPalette = self::getColorPalette()['default'] ?? [];
 
 		// Ignore for some color changes
 		$ignoreColorChange = array('remove_shadows');
@@ -400,10 +404,15 @@ class ColorChanger
 		$css = '';
 		foreach ($color_changes as $color_key => $color)
 		{
-			// Skip if it's same as default or we ignore if it's empty
-			if (($defaultPalette[$color_key] == $settings['cc_' . $color_key] && !in_array($color_key, $ignoreColorChange)) || (in_array($color_key, $ignoreColorChange) && empty($settings['cc_' . $color_key])))
+			// Check for certain conditions
+			if (!empty($defaultPalette) && $defaultPalette[$color_key] == $settings['cc_' . $color_key] && !in_array($color_key, $ignoreColorChange))
 				continue;
 
+			// Ignore these color changes
+			elseif (in_array($color_key, $ignoreColorChange) && empty($settings['cc_' . $color_key]))
+				continue;
+
+			// Create the css block
 			foreach ($color as $key => $code_block)
 			{
 				$css .= $code_block['elements'] . ' {';
