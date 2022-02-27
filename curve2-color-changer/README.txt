@@ -1,8 +1,8 @@
 [center][size=1.7em][color=purple][b]Curve2 Color Changer[/b][/color][/size][/center]
 
 [hr]
-[b]Supported Languages:[/b] English
-[url=https://custom.simplemachines.org/mods/index.php?mod=4231][b]Link To Mod[/b][/url] | [url=https://www.simplemachines.org/community/index.php?topic=567270.0][b]Mod Discussion[/b][/url] | [url=https://custom.simplemachines.org/mods/index.php?action=profile;u=1][b]Other SMF Customization Team Mods[/b][/url]
+[b]Supported Languages:[/b] English, Russian.
+[url="https://custom.simplemachines.org/mods/index.php?mod=4231"][b]Link To Mod[/b][/url] | [url="https://www.simplemachines.org/community/index.php?topic=567270.0"][b]Mod Discussion[/b][/url] | [url="https://custom.simplemachines.org/index.php?action=profile;u=1"][b]Other SMF Customization Team Mods[/b][/url]
 [hr]
 
 [color=purple][b]Compatibility[/b][/color]
@@ -18,65 +18,67 @@ This mod is mainly for the default theme, custom themes might be compatible depe
 [color=purple][b]Usage in custom themes (for theme authors)[/b][/color]
 If you wish to make use of the mod and allow admins to change colors in your theme, add an array with the following format to [b]template_init()[/b]
 
-[code]<?php
-$settings['color_changes'] = array(
-	'COLOR_TYPE' => array(
-		array(
-			'variable' => 'CSS-VAR',
-			'elements' => '.ELEMENT, #ANOTHER_ELEMENT',
-			'properties' => array('PROPERTY_NAME', 'ANOTHER_PROPERTY' => '{color}')
-		)
-		array(...)
-	),
-	...
-);
-[/code]
+[php]$settings['color_changes'] = array(
+    'COLOR_TYPE' => array(
+        array(
+            'variable' => 'CSS-VAR',
+            'elements' => '.ELEMENT, #ANOTHER_ELEMENT',
+            'properties' => array('PROPERTY_NAME', 'ANOTHER_PROPERTY' => '{color}')
+        )
+        array(...)
+    ),
+    ...
+);[/php]
 
 You can use one of the already declared color types :
-[font=monospace]
-'background', 'foreground', 'primary_color', 'secondary_color', 'top_section', 'footer', 'links', 'gradient_end', 'gradient_start', 'blocks_color', 'blocks_alternate_color', 'borders_color', 'buttons_text_color', 'buttons_bg', 'buttons_border', 'special_titles_color'
-[/font]
-or you can use a new color type, but you'll have to give it a text string in this format
-[code]$txt['cc_COLOR_TYPE'] = 'STRING';[/code]
+[font=monospace]'background', 'foreground', 'primary_color', 'secondary_color', 'top_section', 'footer', 'links', 'gradient_end', 'gradient_start', 'blocks_color', 'blocks_alternate_color', 'borders_color', 'buttons_text_color', 'buttons_bg', 'buttons_border', 'special_titles_color'[/font]
+
+Or you can use a new color type, but you'll have to give it a text string in this format:
+[php]$txt['cc_COLOR_TYPE'] = 'STRING';[/php]
+
 Properties will be given the value of the color, and you can also use [b]{color}[/b] and it will be replaced with the color's value.
 
-example from the default theme:
+And since version v1.4, you can also target css variables.
+To add more selectors to root, you can add them to [i]$settings['color_changes_root'][/i] separated by a comma:
+[php]$settings['color_changes_root'] = ':root.blue, :root.red, :root[data-colormode="dark"]';[/php]
+
+[b]Example from the default theme:[/b]
 [code]<?php
 $settings['color_changes'] = array(
-	'background' => array(
-		array(
-			'elements' => 'body',
-			'properties' => array('background')
-		)
-	),
-	'primary_color' => array(
-		array(
-			'elements' => 'div.cat_bar, .amt, .dropmenu li a:hover, .dropmenu li:hover a, .dropmenu li a:focus,
-			#top_info > li > a:hover, #top_info > li:hover > a, #top_info > li > a.open, .button.active, .button.active:hover',
-			'properties' => array('background', 'border-color')
-		),
-		array(
-			'elements' => '#footer',
-			'properties' => array('background')
-		),
-		array(
-			'elements' => '.button.active, .button.active:hover',
-			'properties' => array('color' => '#fff')
-		)
-	),
-	'gradient_start' => array(
-		array(
-			'elements' => '.dropmenu li ul, .top_menu, .dropmenu li li:hover, .button, .dropmenu li li:hover > a, .dropmenu li li a:focus,
-			.dropmenu li li a:hover, #top_section, #search_form .button, .quickbuttons li, .quickbuttons li ul, .quickbuttons li ul li:hover,
-			.quickbuttons ul li a:focus, .popup_window, #inner_section',
-			'properties' => array('background-image' => 'linear-gradient(to bottom, {color} 0%, transparent 70%)')
-		),
-		array(
-			'elements' => '.button:hover, .quickbuttons li:hover, .navigate_section ul, .popup_content, .up_contain,
-			.button:hover, #search_form .button:hover, .quickbuttons li:hover',
-			'properties' => array('background-image' => 'linear-gradient(to bottom, transparent 0%, {color} 70%)')
-		)
-	),
+    'background' => array(
+        array(
+            'elements' => 'body',
+            'properties' => array('background')
+        )
+    ),
+    'primary_color' => array(
+        array(
+            'elements' => 'div.cat_bar, .amt, .dropmenu li a:hover, .dropmenu li:hover a, .dropmenu li a:focus,
+            #top_info > li > a:hover, #top_info > li:hover > a, #top_info > li > a.open, .button.active, .button.active:hover',
+            'properties' => array('background', 'border-color')
+        ),
+        array(
+            'elements' => '#footer',
+            'properties' => array('background')
+        ),
+        array(
+            'elements' => '.button.active, .button.active:hover',
+            'properties' => array('color' => '#fff')
+        )
+    ),
+    'gradient_start' => array(
+        array(
+            'elements' => '.dropmenu li ul, .top_menu, .dropmenu li li:hover, .button, .dropmenu li li:hover > a, .dropmenu li li a:focus,
+            .dropmenu li li a:hover, #top_section, #search_form .button, .quickbuttons li, .quickbuttons li ul, .quickbuttons li ul li:hover,
+            .quickbuttons ul li a:focus, .popup_window, #inner_section',
+            'properties' => array('background-image' => 'linear-gradient(to bottom, {color} 0%, transparent 70%)')
+        ),
+        array(
+            'elements' => '.button:hover, .quickbuttons li:hover, .navigate_section ul, .popup_content, .up_contain,
+            .button:hover, #search_form .button:hover, .quickbuttons li:hover',
+            'properties' => array('background-image' => 'linear-gradient(to bottom, transparent 0%, {color} 70%)')
+        )
+    ),
 );
 [/code]
 
