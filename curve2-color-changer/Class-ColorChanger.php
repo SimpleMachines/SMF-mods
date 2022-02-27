@@ -443,7 +443,7 @@ class ColorChanger
 		if(!empty($css) || !empty($css_root))
 		{
 			// Add root
-			$css = (!empty($css_root) ? ':root {' . $css_root . '}' . $css : $css);
+			$css = (!empty($css_root) ? (':root' . (isset($settings['color_changes_root']) ? ', '. $settings['color_changes_root'] : '') . '{' . $css_root . '}' . $css) : $css);
 			// Remove tabs and line break
 			$css = preg_replace('/[\t\r\n]+/', '', $css);
 			// Sandwitch the code
