@@ -419,7 +419,7 @@ class ColorChanger
 				// Using variables?
 				if (!empty($code_block['variable']))
 				{
-					$css_root .= '--' . $code_block['variable'] . ': ' . $settings['cc_' . $color_key] . ' !important;';
+					$css_root .= '--' . $code_block['variable'] . ': ' . $settings['cc_' . $color_key] . ';';
 				}
 				// Elements?
 				// Check for properties too
