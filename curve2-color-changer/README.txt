@@ -38,9 +38,15 @@ Or you can use a new color type, but you'll have to give it a text string in thi
 
 Properties will be given the value of the color, and you can also use [b]{color}[/b] and it will be replaced with the color's value.
 
-And since version v1.4, you can also target css variables.
-To add more selectors to root, you can add them to [i]$settings['color_changes_root'][/i] separated by a comma:
-[php]$settings['color_changes_root'] = ':root.blue, :root.red, :root[data-colormode="dark"]';[/php]
+And since version v1.4, you can also target css variables and add different selectors.
+To add more selectors to root, you can add them to [i]$settings['color_changes_root'][/i] as array values.
+[php]$settings['color_changes_root'] = array(
+    '.blue',
+    '.red',
+    '[data-colormode="dark"]'
+);[/php]
+This will output something like this:
+[code]:root,:root.blue,:root.red,:root[data-colormode="dark"] { --CSS-VAR: value; };[/code]
 
 [b]Example from the default theme:[/b]
 [code]<?php
