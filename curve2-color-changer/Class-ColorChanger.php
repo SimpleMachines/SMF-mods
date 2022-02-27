@@ -40,7 +40,7 @@ class ColorChanger
 		$controls = function ($input_id) use ($color_palettes, $txt)
 		{
 			// Only set colors if the palette exists for them
-			if (!isset($color_palettes[str_replace('cc_', '', $input_id)]))
+			if (!isset($color_palettes['default'][str_replace('cc_', '', $input_id)]))
 				return;
 
 			return '<a onclick="$(\'#' . $input_id . '\').attr(\'type\', \'color\').val(\'' . $color_palettes['default'][str_replace('cc_', '', $input_id)] . '\')">' . $txt['cc_default_color'] . '</a>';
