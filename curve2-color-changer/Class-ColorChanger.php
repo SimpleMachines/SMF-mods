@@ -3,7 +3,7 @@
  * @package Curve2 Color Changer
  * @author SMF Customization Team (www.simplemachines.org)
  * @license BSD 3-clause
- * @version 1.3
+ * @version 1.4
  */
 
 class ColorChanger
@@ -40,7 +40,7 @@ class ColorChanger
 		$controls = function ($input_id) use ($color_palettes, $txt)
 		{
 			// Only set colors if the palette exists for them
-			if (!isset($color_palettes[str_replace('cc_', '', $input_id)]))
+			if (!isset($color_palettes['default'][str_replace('cc_', '', $input_id)]))
 				return;
 
 			return '<a onclick="$(\'#' . $input_id . '\').attr(\'type\', \'color\').val(\'' . $color_palettes['default'][str_replace('cc_', '', $input_id)] . '\')">' . $txt['cc_default_color'] . '</a>';
@@ -158,6 +158,27 @@ class ColorChanger
 				'id' => 'cc_buttons_border',
 				'label' => $txt['cc_buttons_border'],
 				'description' => $controls('cc_buttons_border'),
+				'type' => 'color',
+				'size' => 10
+			),
+			array(
+				'id' => 'cc_sticky_topic',
+				'label' => $txt['sticky_topic'],
+				'description' => $controls('cc_sticky_topic'),
+				'type' => 'color',
+				'size' => 10
+			),
+			array(
+				'id' => 'cc_unapproved_topic',
+				'label' => $txt['mc_unapproved_poststopics'],
+				'description' => $controls('cc_unapproved_topic'),
+				'type' => 'color',
+				'size' => 10
+			),
+			array(
+				'id' => 'cc_locked_topic',
+				'label' => $txt['locked_topic'],
+				'description' => $controls('cc_locked_topic'),
 				'type' => 'color',
 				'size' => 10
 			),
@@ -282,7 +303,7 @@ class ColorChanger
 			'links' => array(
 				array(
 					'elements' => 'a, a:visited, .dropmenu li:hover li a, .dropmenu li li a, .button, .quickbuttons li, .quickbuttons li a,
-					.quickbuttons li:hover a, .titlebg a, .subbg a',
+					.quickbuttons li:hover a, .titlebg a, .subbg a, .quickbuttons li ul li a:hover',
 					'properties' => array('color')
 				)
 			),
@@ -318,7 +339,7 @@ class ColorChanger
 			'blocks_alternate_color' => array(
 				array(
 					'elements' => '.windowbg:nth-of-type(odd), .bg.odd, .unread_notify:hover, .title_bar, tr.windowbg:hover,
-					.windowbg:nth-of-type(even) blockquote, .windowbg:nth-of-type(odd) .bbc_alternate_quote',
+					.windowbg:nth-of-type(even) blockquote, .windowbg:nth-of-type(odd) .bbc_alternate_quote, .bbc_code',
 					'properties' => array('background')
 				)
 			),
@@ -330,7 +351,7 @@ class ColorChanger
 					#detailedinfo dl, #tracking dl, .inner, .signature, .attachments, .under_message, .custom_fields_above_signature, .custom_fields_below_signature,
 					.quickbuttons li, .quickbuttons li:hover, .quickbuttons li ul, .quickbuttons li ul li:hover, .action_admin .table_grid td, .generic_list_wrapper,
 					#topic_container .windowbg, #topic_icons .information, #messageindex .information, .approvebg, .popup_content, fieldset, #alerts tr.windowbg td,
-					blockquote, #manage_boards li.windowbg, #manage_boards li.windowbg:last-child, #footer',
+					blockquote, #manage_boards li.windowbg, #manage_boards li.windowbg:last-child, #footer, .bbc_code, #inner_wrap',
 					'properties' => array('border-color')
 				),
 				array(
@@ -356,7 +377,7 @@ class ColorChanger
 			),
 			'buttons_text_color' => array(
 				array(
-					'elements' => 'a.button, .button, .quickbuttons li a, .button:hover, .button:focus, .quickbuttons li:hover>a',
+					'elements' => 'a.button, .button, .quickbuttons li a, .button:hover, .button:focus, .quickbuttons li:hover>a, .quickbuttons li:hover li a',
 					'properties' => array('color')
 				),
 			),
@@ -383,6 +404,24 @@ class ColorChanger
 					'properties' => array('border-color')
 				)
 			),
+			'sticky_topic' => array(
+				array(
+					'elements' => '.windowbg.sticky, .windowbg.sticky.locked',
+					'properties' => array('background')
+				),
+			),
+			'unapproved_topic' => array(
+				array(
+					'elements' => '.windowbg.approvetopic, .windowbg.approvepost, .approvebg',
+					'properties' => array('background')
+				),
+			),
+			'locked_topic' => array(
+				array(
+					'elements' => '.windowbg.locked',
+					'properties' => array('background')
+				),
+			),
 			'remove_shadows' => array(
 				array(
 					'elements' => '*',
@@ -402,6 +441,7 @@ class ColorChanger
 
 		// This creates the CSS code string
 		$css = '';
+		$css_root = '';
 		foreach ($color_changes as $color_key => $color)
 		{
 			// Check for certain conditions
@@ -415,22 +455,34 @@ class ColorChanger
 			// Create the css block
 			foreach ($color as $key => $code_block)
 			{
-				$css .= $code_block['elements'] . ' {';
-				foreach ($code_block['properties'] as $property => $value)
+				// Using variables?
+				if (!empty($code_block['variable']))
 				{
-					// Is the property really the property ?
-					if (is_string($property))
-						$css .= $property . ': ' . str_replace('{color}', $settings['cc_' . $color_key], $value) . ';';
-					// Otherwise the $value is the $property
-					else
-						$css .= $value . ': ' . $settings['cc_' . $color_key] . ';';
+					$css_root .= '--' . $code_block['variable'] . ': ' . $settings['cc_' . $color_key] . ';';
 				}
-				$css .= '}';
+				// Elements?
+				// Check for properties too
+				if (!empty($code_block['elements']) && !empty($code_block['properties']))
+				{
+					$css .= $code_block['elements'] . ' {';
+					foreach ($code_block['properties'] as $property => $value)
+					{
+						// Is the property really the property ?
+						if (is_string($property))
+							$css .= $property . ': ' . str_replace('{color}', $settings['cc_' . $color_key], $value) . ';';
+						// Otherwise the $value is the $property
+						else
+							$css .= $value . ': ' . $settings['cc_' . $color_key] . ';';
+					}
+					$css .= '}';
+				}
 			}
 		}
 
-		if(!empty($css))
+		if(!empty($css) || !empty($css_root))
 		{
+			// Add root
+			$css = (!empty($css_root) ? (':root' . (isset($settings['color_changes_root']) && !empty($settings['color_changes_root']) ? ',:root'. implode(',:root', $settings['color_changes_root']) : '') . '{' . $css_root . '}' . $css) : $css);
 			// Remove tabs and line break
 			$css = preg_replace('/[\t\r\n]+/', '', $css);
 			// Sandwitch the code
@@ -472,6 +524,9 @@ class ColorChanger
 				'buttons_bg'             => '#ffffff',
 				'buttons_border'         => '#dddddd',
 				'special_titles_color'   => '#a85400',
+				'sticky_topic'             => '#cfdce8',
+				'unapproved_topic'     => '#e4a17c',
+				'locked_topic'          => '#e7eaef',
 				'remove_shadows'         => false,
 			),
 			'brownish' => array(
@@ -491,6 +546,9 @@ class ColorChanger
 				'buttons_bg'             => '#ffffff',
 				'buttons_border'         => '#dddddd',
 				'special_titles_color'   => '#c6574a',
+				'sticky_topic'             => '#cad7e3',
+				'unapproved_topic'     => '#db9d7b',
+				'locked_topic'          => '#dcdfe3',
 				'remove_shadows'         => false,
 			),
 			'redish' => array(
@@ -510,6 +568,9 @@ class ColorChanger
 				'buttons_bg'             => '#ffffff',
 				'buttons_border'         => '#dddddd',
 				'special_titles_color'   => '#c22529',
+				'sticky_topic'             => '#bf9797',
+				'unapproved_topic'     => '#db9d7b',
+				'locked_topic'          => '#b39b9b',
 				'remove_shadows'         => true,
 			),
 			'dark_blue' => array(
@@ -529,6 +590,9 @@ class ColorChanger
 				'primary_color'          => '#188dd3',
 				'secondary_color'        => '#4e6adc',
 				'special_titles_color'   => '#4a8ad0',
+				'sticky_topic'             => '#283466',
+				'unapproved_topic'     => '#662c2c',
+				'locked_topic'          => '#090e24',
 				'remove_shadows'         => true,
 			),
 			'flat' => array(
@@ -548,6 +612,9 @@ class ColorChanger
 				'buttons_text_color'     => '#24292e',
 				'buttons_bg'             => '#ffffff',
 				'buttons_border'         => '#24292e',
+				'sticky_topic'             => '#cad7e3',
+				'unapproved_topic'     => '#db9d7b',
+				'locked_topic'          => '#dcdfe3',
 				'remove_shadows'         => true,
 			)
 		);
