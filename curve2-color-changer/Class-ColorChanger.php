@@ -3,7 +3,7 @@
  * @package Curve2 Color Changer
  * @author SMF Customization Team (www.simplemachines.org)
  * @license BSD 3-clause
- * @version 1.3
+ * @version 1.4
  */
 
 class ColorChanger
@@ -443,7 +443,7 @@ class ColorChanger
 		if(!empty($css) || !empty($css_root))
 		{
 			// Add root
-			$css = (!empty($css_root) ? (':root' . (isset($settings['color_changes_root']) ? ', '. $settings['color_changes_root'] : '') . '{' . $css_root . '}' . $css) : $css);
+			$css = (!empty($css_root) ? (':root' . (isset($settings['color_changes_root']) && !empty($settings['color_changes_root']) ? ',:root'. implode(',:root', $settings['color_changes_root']) : '') . '{' . $css_root . '}' . $css) : $css);
 			// Remove tabs and line break
 			$css = preg_replace('/[\t\r\n]+/', '', $css);
 			// Sandwitch the code
