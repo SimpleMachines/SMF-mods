@@ -402,6 +402,7 @@ class ColorChanger
 
 		// This creates the CSS code string
 		$css = '';
+		$css_root = '';
 		foreach ($color_changes as $color_key => $color)
 		{
 			// Check for certain conditions
@@ -415,22 +416,34 @@ class ColorChanger
 			// Create the css block
 			foreach ($color as $key => $code_block)
 			{
-				$css .= $code_block['elements'] . ' {';
-				foreach ($code_block['properties'] as $property => $value)
+				// Using variables?
+				if (!empty($code_block['variable']))
 				{
-					// Is the property really the property ?
-					if (is_string($property))
-						$css .= $property . ': ' . str_replace('{color}', $settings['cc_' . $color_key], $value) . ';';
-					// Otherwise the $value is the $property
-					else
-						$css .= $value . ': ' . $settings['cc_' . $color_key] . ';';
+					$css_root .= '--' . $code_block['variable'] . ': ' . $settings['cc_' . $color_key] . ' !important;';
 				}
-				$css .= '}';
+				// Elements?
+				// Check for properties too
+				if (!empty($code_block['elements']) && !empty($code_block['properties']))
+				{
+					$css .= $code_block['elements'] . ' {';
+					foreach ($code_block['properties'] as $property => $value)
+					{
+						// Is the property really the property ?
+						if (is_string($property))
+							$css .= $property . ': ' . str_replace('{color}', $settings['cc_' . $color_key], $value) . ';';
+						// Otherwise the $value is the $property
+						else
+							$css .= $value . ': ' . $settings['cc_' . $color_key] . ';';
+					}
+					$css .= '}';
+				}
 			}
 		}
 
-		if(!empty($css))
+		if(!empty($css) || !empty($css_root))
 		{
+			// Add root
+			$css = (!empty($css_root) ? ':root {' . $css_root . '}' . $css : $css);
 			// Remove tabs and line break
 			$css = preg_replace('/[\t\r\n]+/', '', $css);
 			// Sandwitch the code
