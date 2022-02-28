@@ -127,6 +127,13 @@ class ColorChanger
 				'size' => 10
 			),
 			array(
+				'id' => 'cc_content_target_bg',
+				'label' => $txt['cc_content_target'],
+				'description' => $controls('cc_content_target_bg'),
+				'type' => 'color',
+				'size' => 10
+			),
+			array(
 				'id' => 'cc_special_titles_color',
 				'label' => $txt['cc_special_titles_color'],
 				'description' => $controls('cc_special_titles_color'),
@@ -165,6 +172,13 @@ class ColorChanger
 				'id' => 'cc_sticky_topic',
 				'label' => $txt['sticky_topic'],
 				'description' => $controls('cc_sticky_topic'),
+				'type' => 'color',
+				'size' => 10
+			),
+			array(
+				'id' => 'cc_sticky_locked_topic',
+				'label' => $txt['sticky_topic'] . ' + ' . $txt['locked_topic'],
+				'description' => $controls('cc_sticky_locked_topic'),
 				'type' => 'color',
 				'size' => 10
 			),
@@ -233,7 +247,7 @@ class ColorChanger
 		// Merge our new settings
 		$context['theme_settings'] = array_merge($context['theme_settings'], $cc_settings);
 
-		addInlineCss('#color_palettes{display: flex;flex-wrap: wrap;clear: both;}.cc_p_color{width: 10px;height: 36px;display: inline-block;}#color_palettes .cc_palette{cursor: pointer;display: flex;flex-wrap: wrap;padding: 4px;border-radius: 0;margin: 0 3px;background: transparent;}');
+		addInlineCss('#color_palettes{display: flex;flex-wrap: wrap;clear: both;gap:15px;}.cc_p_color{width: 8px;height: 36px;display: inline-block;}#color_palettes .cc_palette{cursor: pointer;display: flex;flex-wrap: wrap;padding: 4px;border-radius: 0;margin: 0 3px;background: transparent;}');
 	}
 
 	/**
@@ -343,6 +357,12 @@ class ColorChanger
 					'properties' => array('background')
 				)
 			),
+			'content_target_bg' => array(
+				array(
+					'elements' => '.windowbg:target',
+					'properties' => array('background')
+				),
+			),
 			'borders_color' => array(
 				array(
 					'elements' => '#wrapper, .button, .button:hover, .button:focus, .windowbg, .roundframe, .information, #top_section, .navigate_section ul, .dropmenu li ul, .top_menu,
@@ -406,7 +426,13 @@ class ColorChanger
 			),
 			'sticky_topic' => array(
 				array(
-					'elements' => '.windowbg.sticky, .windowbg.sticky.locked',
+					'elements' => '.windowbg.sticky',
+					'properties' => array('background')
+				),
+			),
+			'sticky_locked_topic' => array(
+				array(
+					'elements' => '.windowbg.sticky.locked',
 					'properties' => array('background')
 				),
 			),
@@ -519,12 +545,14 @@ class ColorChanger
 				'gradient_start'         => '#e2e9f3',
 				'blocks_color'           => '#f0f4f7',
 				'blocks_alternate_color' => '#fdfdfd',
+				'content_target_bg'     => '#ffffe0',
 				'borders_color'          => '#dddddd',
 				'buttons_text_color'     => '#444444',
 				'buttons_bg'             => '#ffffff',
 				'buttons_border'         => '#dddddd',
 				'special_titles_color'   => '#a85400',
 				'sticky_topic'             => '#cfdce8',
+				'sticky_locked_topic'          => '#e8d8cf',
 				'unapproved_topic'     => '#e4a17c',
 				'locked_topic'          => '#e7eaef',
 				'remove_shadows'         => false,
@@ -541,12 +569,14 @@ class ColorChanger
 				'gradient_start'         => '#f0e7e1',
 				'blocks_color'           => '#f5eeeb',
 				'blocks_alternate_color' => '#f3ded6',
+				'content_target_bg'     => '#f0e6d3',
 				'borders_color'          => '#dddddd',
 				'buttons_text_color'     => '#681e11',
 				'buttons_bg'             => '#ffffff',
 				'buttons_border'         => '#dddddd',
 				'special_titles_color'   => '#c6574a',
 				'sticky_topic'             => '#cad7e3',
+				'sticky_locked_topic'          => '#dbc9bf',
 				'unapproved_topic'     => '#db9d7b',
 				'locked_topic'          => '#dcdfe3',
 				'remove_shadows'         => false,
@@ -563,12 +593,14 @@ class ColorChanger
 				'gradient_start'         => '#fef5f7',
 				'blocks_color'           => '#fcf3f3',
 				'blocks_alternate_color' => '#f8dadb',
+				'content_target_bg'     => '#d1c7c7',
 				'borders_color'          => '#dddddd',
 				'buttons_text_color'     => '#842b2d',
 				'buttons_bg'             => '#ffffff',
 				'buttons_border'         => '#dddddd',
 				'special_titles_color'   => '#c22529',
 				'sticky_topic'             => '#bf9797',
+				'sticky_locked_topic'          => '#a37e7e',
 				'unapproved_topic'     => '#db9d7b',
 				'locked_topic'          => '#b39b9b',
 				'remove_shadows'         => true,
@@ -576,6 +608,7 @@ class ColorChanger
 			'dark_blue' => array(
 				'background'             => '#152348',
 				'blocks_alternate_color' => '#0f142d',
+				'content_target_bg'     => '#1c1f2e',
 				'blocks_color'           => '#121831',
 				'borders_color'          => '#1d2e5a',
 				'top_section'            => '#ffffff',
@@ -591,6 +624,7 @@ class ColorChanger
 				'secondary_color'        => '#4e6adc',
 				'special_titles_color'   => '#4a8ad0',
 				'sticky_topic'             => '#283466',
+				'sticky_locked_topic'          => '#1e2645',
 				'unapproved_topic'     => '#662c2c',
 				'locked_topic'          => '#090e24',
 				'remove_shadows'         => true,
@@ -607,12 +641,14 @@ class ColorChanger
 				'gradient_end'           => '#ffffff',
 				'blocks_color'           => '#f6f8fa',
 				'blocks_alternate_color' => '#f6f8fa',
+				'content_target_bg'     => '#e0edff',
 				'special_titles_color'   => '#24292e',
 				'borders_color'	         => '#d1d6dc',
 				'buttons_text_color'     => '#24292e',
 				'buttons_bg'             => '#ffffff',
 				'buttons_border'         => '#24292e',
 				'sticky_topic'             => '#cad7e3',
+				'sticky_locked_topic'          => '#a0acb8',
 				'unapproved_topic'     => '#db9d7b',
 				'locked_topic'          => '#dcdfe3',
 				'remove_shadows'         => true,
