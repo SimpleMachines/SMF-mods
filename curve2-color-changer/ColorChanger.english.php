@@ -35,3 +35,5 @@ $txt['cc_reset_all'] = 'Reset all to default';
 
 $txt['cc_palettes_title'] = 'Ready for use color palettes';
 $txt['cca_unknown_color'] = 'Unknown new color';
+
+$txt['cc_content_target'] = 'Content target background color';
