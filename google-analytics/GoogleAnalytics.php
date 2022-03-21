@@ -5,10 +5,10 @@
  *
  * @package Google Analytics Code
  * @author Simple Machines http://www.simplemachines.org
- * @copyright 2015 Simple Machines
+ * @copyright 2022 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 1.5.1
+ * @version 1.6
  */
 
 if (!defined('SMF'))
@@ -27,16 +27,15 @@ function google_analytics_load_theme()
 
 	if (!empty($modSettings['googleAnalyticsCode']) && !isset($_REQUEST['xml']))
 	{
-			$context['html_headers'] .= '
-	<script type="text/javascript">
-		(function(i,s,o,g,r,a,m){i[\'GoogleAnalyticsObject\']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,\'script\',\'//www.google-analytics.com/analytics.js\',\'ga\');
+		$context['html_headers'] .= '
+		<script async src="https://www.googletagmanager.com/gtag/js?id= \'' . $modSettings['googleAnalyticsCode'] . '\'"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag(\'js\', new Date());
 
-		ga(\'create\', \'' . $modSettings['googleAnalyticsCode'] . '\', \'' . $_SERVER['SERVER_NAME'] . '\');
-		ga(\'send\', \'pageview\');
-	</script>';
+			gtag(\'config\',  \'' . $modSettings['googleAnalyticsCode'] . '\');
+		</script>';
 	}
 }
 
@@ -53,7 +52,7 @@ function google_analytics_general_mod_settings(&$config_vars)
 
 	loadLanguage('GoogleAnalytics');
 	$config_vars = array_merge($config_vars, array(
-		$txt['googleAnalyticsTitle'],
+		array('title', 'googleAnalyticsTitle'),
 		array('text', 'googleAnalyticsCode', 'subtext' => $txt['googleAnalyticsCode_desc'], 'postinput' => $txt['googleAnalyticsCode_link']),
 		'',
 	));
