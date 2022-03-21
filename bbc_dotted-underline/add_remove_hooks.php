@@ -17,7 +17,7 @@ elseif (!defined('SMF')) // If we are outside SMF and can't find SSI.php, then t
 	die('<b>Error:</b> Cannot install - please verify you put this file in the same place as SMF\'s SSI.php.');
 if (SMF == 'SSI')
 	db_extend('packages');
-	
+
 // Define the hooks
 $hook_functions = array(
 	'integrate_bbc_codes' => 'dottedunderline_bbc_add_code',
