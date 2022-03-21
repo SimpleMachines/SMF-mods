@@ -15,7 +15,6 @@ This modification adds a BBCode button next to the "Underline" button on the pos
 [color=purple][b]Installation Information[/b][/color]
 The Package Manager should work in most cases, if you have problems installing please use the discussion thread as well as [url="http://docs.simplemachines.org/index.php?topic=402"]Manual Installation of Mods[/url]
 
-
 [color=purple][b]Support[/b][/color]
 Please use the modification thread for support with this modification.
 
@@ -26,6 +25,7 @@ Please use the modification thread for support with this modification.
 [b]Version 1.1 - March 20 2014[/b]
 - Fixed wrong language string
 - Fixed issue with hooks
+
 [b]Version 1.0 - October 30 2009[/b]
 - Initial release
 
