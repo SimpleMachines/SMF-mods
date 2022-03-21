@@ -5,7 +5,7 @@
  *
  * @package Google Analytics Code
  * @author Simple Machines http://www.simplemachines.org
- * @copyright 2015 Simple Machines
+ * @copyright 2022 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
  * @version 1.6
@@ -18,4 +18,4 @@ $helptxt['googleAnalyticsCode'] = 'Here you add your publisher code for Google A
 $txt['googleAnalyticsTitle'] = 'Google Analytics';
 $txt['googleAnalyticsCode'] = 'Google Analytics code';
 $txt['googleAnalyticsCode_desc'] = 'E.g. UA-00000000-0';
-$txt['googleAnalyticsCode_link'] = '<a href="https://support.google.com/analytics/answer/1008080/">Get one</a>';
+$txt['googleAnalyticsCode_link'] = '<a href="https://support.google.com/analytics/answer/7372977?hl=en">Get one</a>';

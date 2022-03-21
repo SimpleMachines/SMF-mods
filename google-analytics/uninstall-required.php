@@ -5,7 +5,7 @@
  *
  * @package Google Analytics Code
  * @author Simple Machines http://www.simplemachines.org
- * @copyright 2015 Simple Machines
+ * @copyright 2022 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
  * @version 1.5.1
