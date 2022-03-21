@@ -3,37 +3,35 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>customization_team:leet</id>
 	<name>Leet Mod</name>
-	<version>1.1</version>
+	<version>1.2</version>
 	<type>modification</type>
-	
-	<!-- Add it back for SMF 2.0 -->
-	<install for="2.0 Beta 3.1 Public, 2.0 Beta 4, 2.0 RC1.2, 2.0 RC2, 2.0 RC3, 2.0 RC4, 2.0 RC5, 2.0 - 2.0.99">
-	    <readme type="file" parsebbc="true">readme-english.txt</readme>
-		<modification>leetsmf2.xml</modification>
-	</install>
-	
-	<!-- SMF 2.0 untested versions -->
-	<install for="2.1 - 2.99.99">
-		<readme type="inline" parsebbc="true">[color=red]Warning! This mod has not been tested on your version of SMF.
-		Do not proceed if you get errors![/color]</readme>
-		<modification>leetsmf2.xml</modification>
-	</install>
-	
-	<uninstall for="2.0 - 2.99.99">
-		<modification reverse="true">leetsmf2.xml</modification>
-	</uninstall>
-	
-	<!-- Adds it for SMF 1.1.x -->
-	<install for="1.1.4 - 1.1.15">
-		<modification reverse="true">leet11.xml</modification>
-	</install>
 
-	<!-- SMF 1.1.x untested versions -->
-	<install for="1.1.12 - 1.1.99">
+	<!-- SMF 1.1.x -->
+	<install for="1.1.4 - 1.1.99">
 		<modification reverse="true">leet11.xml</modification>
 	</install>
-	
 	<uninstall for="1.1.4 - 1.1.99">
 		<modification>leetsmf1.xml</modification>
 	</uninstall>
+
+	<!-- SMF 2.0.x -->
+	<install for="2.0 - 2.0.99">
+		<readme type="file" parsebbc="true">readme.txt</readme>
+		<modification>leetsmf2.xml</modification>
+	</install>
+	<uninstall for="2.0 - 2.0.99">
+		<modification reverse="true">leetsmf2.xml</modification>
+	</uninstall>
+
+	<!-- SMF 2.1.x -->
+	<install for="2.1 - 2.1.99">
+		<readme type="file" parsebbc="true">readme.txt</readme>
+		<require-file name="Subs-Leet.php" destination="$sourcedir" />
+		<hook hook="integrate_member_context" function="Leet::member_context" file="$sourcedir/Subs-Leet.php" />
+	</install>
+	<uninstall for="2.1 - 2.1.99">
+		<hook hook="integrate_member_context" function="Leet::member_context" file="$sourcedir/Subs-Leet.php" reverse="true" />
+		<remove-file name="$sourcedir/Subs-Leet.php" />
+	</uninstall>
+
 </package-info>
