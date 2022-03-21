@@ -6,7 +6,7 @@
 	<type>modification</type>
 	<version>1.1.1</version>
 
-	<install for="2.0 - 2.1.99">
+	<install for="2.0 - 2.0.99">
 		<readme type="file" parsebbc="true">readme.txt</readme>
 		<code>hooks.php</code>
 		<modification type="file">english.xml</modification>
@@ -14,28 +14,35 @@
 		<modification type="file">german.xml</modification>
 		<modification type="file">portuguese.xml</modification>
 		<require-file name="Subs-Overlinebbc.php" destination="$sourcedir" />
+		<require-file name="overline.gif" destination="$imagesdir/bbc" />
 	</install>
-	<uninstall for="2.0 - 2.1.99">
+	<uninstall for="2.0 - 2.0.99">
 		<code>hooks.php</code>
 		<modification type="file" reverse="true">english.xml</modification>
 		<modification type="file" reverse="true">brazilian.xml</modification>
 		<modification type="file" reverse="true">german.xml</modification>
 		<modification type="file" reverse="true">portuguese.xml</modification>
 		<remove-file name="$sourcedir/Subs-Overlinebbc.php" />
-	</uninstall>
-	
-	<install for="2.0 - 2.0.99">
-		<require-file name="overline.gif" destination="$imagesdir/bbc" />
-	</install>
-	<uninstall for="2.0 - 2.0.99">
 		<remove-file name="$imagesdir/bbc/overline.gif" />
 	</uninstall>
 
 	<install for="2.1 - 2.1.99">
+		<readme type="file" parsebbc="true">readme.txt</readme>
+		<code>hooks.php</code>
+		<modification type="file">english.xml</modification>
+		<modification type="file">brazilian.xml</modification>
+		<modification type="file">german.xml</modification>
+		<modification type="file">portuguese.xml</modification>
+		<require-file name="Subs-Overlinebbc.php" destination="$sourcedir" />
 		<require-file name="overline.png" destination="$imagesdir/bbc" />
 	</install>
 	<uninstall for="2.1 - 2.1.99">
+		<code>hooks.php</code>
+		<modification type="file" reverse="true">english.xml</modification>
+		<modification type="file" reverse="true">brazilian.xml</modification>
+		<modification type="file" reverse="true">german.xml</modification>
+		<modification type="file" reverse="true">portuguese.xml</modification>
+		<remove-file name="$sourcedir/Subs-Overlinebbc.php" />
 		<remove-file name="$imagesdir/bbc/overline.png" />
 	</uninstall>
-
 </package-info>
