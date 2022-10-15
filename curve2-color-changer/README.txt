@@ -92,6 +92,9 @@ $settings['color_changes'] = array(
 Please use the modification thread for support with this modification.
 
 [color=purple][b]Changelog[/b][/color]
+[b]Version 1.4.2 - 15 October 2022[/b]
+- Fixed undefined errors when no settings are saved
+
 [b]Version 1.4.1 - 28 February 2022[/b]
 - Added option for sticky+locked status
 - Added option for :target content

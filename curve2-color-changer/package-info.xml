@@ -4,7 +4,7 @@
 	<name>Curve2 Color Changer</name>
 	<id>smf:curve2_color_changer</id>
 	<type>modification</type>
-	<version>1.4.1</version>
+	<version>1.4.2</version>
 
 	<install for="2.1 - 2.1.99">
 		<readme type="file" parsebbc="true">README.txt</readme>
