@@ -471,7 +471,7 @@ class ColorChanger
 		foreach ($color_changes as $color_key => $color)
 		{
 			// Check for certain conditions
-			if (!empty($defaultPalette) && $defaultPalette[$color_key] == $settings['cc_' . $color_key] && !in_array($color_key, $ignoreColorChange))
+			if (!isset($settings['cc_' . $color_key]) || (!empty($defaultPalette) && $defaultPalette[$color_key] == $settings['cc_' . $color_key] && !in_array($color_key, $ignoreColorChange)))
 				continue;
 
 			// Ignore these color changes
