@@ -8,7 +8,7 @@
  * @copyright 2022 Simple Machines
  * @license http://www.simplemachines.org/about/smf/license.php BSD
  *
- * @version 1.6
+ * @version 1.6.1
  */
 
 if (!defined('SMF'))
@@ -28,7 +28,7 @@ function google_analytics_load_theme()
 	if (!empty($modSettings['googleAnalyticsCode']) && !isset($_REQUEST['xml']))
 	{
 		$context['html_headers'] .= '
-		<script async src="https://www.googletagmanager.com/gtag/js?id= \'' . $modSettings['googleAnalyticsCode'] . '\'"></script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=\'' . $modSettings['googleAnalyticsCode'] . '\'"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
