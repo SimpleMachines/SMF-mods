@@ -21,6 +21,9 @@ This mod allows a user to specify their Google Analytics code, e.g. UA-00000000-
 The Package Manager should work in most cases, if you have problems installing please use the discussion thread as well as [url="http://docs.simplemachines.org/index.php?topic=402"]Manual Installation of Mods[/url]
 
 [color=purple][b]Change Log:[/b][/color]
+[b]1.6.1 - 25  January 2023[/b]
+! Remove extra space in the code id
+
 [b]1.6 - 21 March 2022[/b]
 - SMF 2.1 release
 + Now using newer gtag code
